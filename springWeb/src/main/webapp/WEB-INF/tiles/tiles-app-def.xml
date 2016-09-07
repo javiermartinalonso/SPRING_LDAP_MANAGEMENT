@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+	<definition name="app.*" extends="mainLayout">
+		<!-- Este valor debe internacionalizarse y sacarse a i18 -->
+		<put-attribute name="title" value="app" />
+		<put-attribute name="content" value="/WEB-INF/views/pages/app/{1}.jsp" />
+	</definition>
+
+	<!-- pantallas modales -->
+	<definition name="app_modal.*" extends="simpleLayout">
+		<!-- Este valor debe internacionalizarse y sacarse a i18 -->
+		<put-attribute name="title" value="app" />
+		<put-attribute name="content" value="/WEB-INF/views/pages/app/{1}.jsp" />
+	</definition>
+
+</tiles-definitions>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+   <definition name="security.*" extends="simpleLayout">      
+   	  <!-- Este valor debe internacionalizarse y sacarse a i18 -->
+      <put-attribute name="title" value="Gestion Seguridad" />
+      <put-attribute name="content" value="/WEB-INF/views/pages/security/{1}.jsp" />
+   </definition>
+   	
+</tiles-definitions>

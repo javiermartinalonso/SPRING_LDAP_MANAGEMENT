@@ -1,0 +1,62 @@
+Una organizacion puede dividirse en mas organizaciones.
+
+DN: dc=algo,dc=algo,dc=...
+	ou=grupos
+	ou=people
+		uid=user1
+		uid=user2
+	ou=system
+		uid=admin1
+		uid=admin2
+
+
+Una organizacion hoja o final está formada por grupos bien identificados.
+organizacion 
+	--> domain
+	--> extensibleObject
+	--> top
+	
+	--> organization
+	--> dcObject
+	
+	dc: nombre de la organización suele coincidir con el dominio de la organizacion
+
+
+Los grupos pueden contener mas grupos.
+Un grupo hoja o final esta dividido en roles.
+
+grupos 
+	--> organizationalUnit
+	ou: nombre organizacion
+
+	- Un grupo de personas es un grupo especial que sirve para autenticar 
+	a un usuario dentro de un grupo o dentro de una organizacion.
+	Es decir el usuario puede existir a nivel de toda la organizacion o bien existirá sólo a nivel de un grupo, 
+	como un usuario técnico independiente de la organización
+	de este grupo cuelgan objetos persona
+		--> organizationalUnit
+		ou=people
+		
+	- Un rol es desempeñado por una o mas personas
+	roles 
+		--> group
+		--> groupOfUniquesNames
+		cn: nombre del rol
+		uniquemember: cada persona que está autorizada con este rol, dentro de este grupo.
+			uid=[identificador de la persona],ou=people,ou=application,ou=applications,dc=acme,dc=spring,dc=ldap,dc=com
+		
+
+
+	
+persona
+	--> top
+	--> person
+	--> organizationalPerson
+	--> inetOrgPerson
+	cn: nombre persona
+	sn: apellidos persona
+	uid: identificador unico de la persona
+	userpassword: password
+	givenName: nombre completo
+	mail: mail
+	

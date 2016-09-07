@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context 
+  	http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- FICHEROS DE PROPIEDADES CON TRADUCCIONES DE LOS LITERALES DE LA APLICACIÓN A DISTINTOS IDIOMAS -->
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="classpath:/i18n/messages" />
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+
+	<!-- utilities -->
+	<bean name="internationalizationUtilUser" class="es.ldap.spring.management.util.InternationalizationUtil" />
+	                                                 
+	
+	<!-- CARGA DE FICHEROS PROPERTIES GLOBALES A LA APLICACIÓN EN EL CONTEXTO DE SPRING -->
+	<bean id="projectEnvironmentProperties"	class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<!-- RUTA DE LOS PROPERTIES A CARGAR EN EL CONTEXTO DE SPRING -->
+		<property name="locations">
+			<list>
+				<!-- properties por defecto, sino encuentra ninguno en el entorno, tira	de este por defecto -->
+				<value>classpath:META-INF/config/resource.properties</value>
+			</list>
+		</property>
+
+		<!-- Compruebe las propiedades del sistema primero , antes de probar las propiedades especificadas -->
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+		<!-- aseguramos que un configurador no fallará si no puede encontrar una 
+			propiedad, ya que la propiedad puede aparecer en fichero que se cargue posteriormente -->
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+		<!-- aseguramos que un configurador no fallará si no puede encontrar un fichero properties -->
+		<property name="ignoreResourceNotFound" value="true" />
+
+	</bean>
+</beans>

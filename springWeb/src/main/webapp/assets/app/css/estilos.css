@@ -1,0 +1,95 @@
+/* General Reset */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, hr, button {
+	margin:0;
+	padding:0;
+	border:0;
+	outline:0;
+	font-size:100%;
+	vertical-align:baseline;
+	background:none;
+}
+
+/*TIPO DE LETRA MONTSERRAT*/
+@font-face {
+	font-family: Montserrat;
+	src: url(../fonts/Montserrat/Montserrat-Regular.ttf);
+}
+
+html{ 
+	height: 100%;
+}
+
+body{
+	font-family: Montserrat, Arial, Helvetica, sans-serif;
+	font-style: normal;
+	text-transform: none;
+	text-decoration: none;
+	letter-spacing: 0em;
+	word-spacing: 0em;
+	line-height: 21px;
+	font-weight: normal;
+	font-size: 12px;
+	height: 100%;
+	position: relative;
+	color: #000;
+	margin:0px;
+	padding:0px;
+	line-height:21px;
+	background-color:#fff;
+}
+
+body#welcome{
+	background-color:#f8f8f8;
+}
+
+body#layout{
+	background-color:#f8f8f8;
+}
+
+body#app-layout{
+	background-color:#fff;
+}
+
+
+
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: Montserrat;
+	font-weight:400;
+	text-transform: uppercase;
+}
+
+h1 {
+	font-size:10px;
+	/*margin-bottom:15px;*/
+}
+
+h2 {
+	font-size:18px;
+	/*margin-bottom:15px;*/
+}
+
+h3 {
+	font-size:16px;
+	/*margin-bottom:15px;*/
+}
+
+h4 {
+	font-size:14px;
+	/*margin-bottom:15px;*/
+}
+
+h5 {
+	font-size:12px;
+	/*margin-bottom:15px;*/
+}
+
+/*TABLAS*/
+thead th, tfoot th {
+	background: #69746F url(../img/pixel.png) top right repeat-x !important;
+	border-bottom: 1px solid #fff !important;
+	/*border-top: 1px solid #fff !important;*/
+	border-right:2px solid #999999;
+	color: #fff;
+	font-family: Montserrat, Arial, Helvetica, sans-serif !important;
+}
