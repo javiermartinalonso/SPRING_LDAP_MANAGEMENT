@@ -1,0 +1,4 @@
+http://docs.spring.io/spring-ldap/docs/current/reference/#introduction
+
+http://spring.io/blog/2014/03/26/webinar-replay-spring-ldap-2-0-0
+
