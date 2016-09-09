@@ -16,6 +16,23 @@
         <param-value>classpath:/applicationContext.xml</param-value>
     </context-param>
 
+<!-- 
+http://stackoverflow.com/questions/13629653/using-put-and-delete-methods-in-spring-mvc
+http://docs.spring.io/autorepo/docs/spring-framework/3.0.x/javadoc-api/org/springframework/web/filter/HiddenHttpMethodFilter.html
+
+Filter que convierte los parámetros del método contabiliza en los métodos HTTP, recuperables a través HttpServletRequest.getMethod(). 
+Dado que los navegadores actualmente sólo GET y POST apoyo, una técnica común - utilizado por la librería Prototype, 
+por ejemplo - es utilizar un POST normal con un campo de formulario oculto adicional ( _method) para pasar el método "real" a lo largo de HTTP. 
+
+<input type="hidden" name="_method" value="PUT"/>
+
+Este filtro lee ese parámetro y cambia el HttpServletRequestWrapper.getMethod() valor de retorno en consecuencia.
+
+El nombre de los valores predeterminados de los parámetros a petición _method, pero se puede adaptar a través de la methodParampropiedad.
+
+NOTA:. Este filtro necesita para funcionar después de la elaboración de varias partes en el caso de una solicitud POST de varias partes, 
+debido a su inherente necesidad de comprobar un parámetro cuerpo de POST Así lo general, poner un resorte antes de esta 
+HiddenHttpMethodFilter en su cadena de filtros. MultipartFilter web.xml -->
     <filter>
         <filter-name>HiddenMethod</filter-name>
         <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
