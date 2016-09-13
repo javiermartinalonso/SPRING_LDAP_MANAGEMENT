@@ -1,5 +1,8 @@
 package es.organization.ldap.model.bean;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class ContactInformation
 {
 	private String	email;
@@ -193,4 +196,26 @@ public class ContactInformation
 	{
 		this.lastName = lastName;
 	}
+	
+	@Override
+	public String toString()
+	{
+		ObjectMapper mapper = new ObjectMapper();
+		
+		//Object to JSON in String
+		try 
+		{
+			return mapper.writeValueAsString(this);
+		} 
+		catch (JsonProcessingException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "";
+		
+	}
+	
+
 }

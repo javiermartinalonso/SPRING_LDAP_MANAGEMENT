@@ -34,18 +34,18 @@ public interface PersonRepository
 	 * person pasado como parámetro, actualizando los datos con los del objeto person.
 	 * @param Person person
 	 */
-	void updateContact(Person person);
+	void updatePerson(Person person);
 
 	/**
 	 * Crea una nueva persona en el LDAP con el del objeto person pasado como parámetro
 	 * @param Person person
 	 */
-	void insertContact(Person person);
+	void insertPerson(Person person);
 
 	/**
 	 * Elimina una persona del LDAP cuyo identificador coincida con el del objeto
 	 * person pasado como parámetro
 	 * @param Person person
 	 */
-	void deleteContact(Person person);
+	void deletePerson(Person person);
 }

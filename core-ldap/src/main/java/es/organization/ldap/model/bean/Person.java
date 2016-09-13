@@ -1,30 +1,37 @@
 package es.organization.ldap.model.bean;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class Person
 {
 
-	private String	userName;
+	private String				userName;
 
-	private String	pass;
-	
-	private String	firstName;
+	private String				pass;
 
-	private String	lastName;
-	
+	private String				firstName;
+
+	private String				lastName;
+
 	private ContactInformation	personalContact;
-	
+
 	private ContactInformation	professionalContact;
 
-	
+	private String				description;
+
+
 	public Person()
 	{
 		super();
-		
+
 		this.personalContact = new ContactInformation();
-		this.professionalContact = new ContactInformation();;
+		this.professionalContact = new ContactInformation();
+		;
 	}
-	
-	public Person(String userName, String pass, String firstName, String lastName, ContactInformation personalContact, ContactInformation professionalContact)
+
+
+	public Person(String userName, String pass, String firstName, String lastName, ContactInformation personalContact, ContactInformation professionalContact, String description)
 	{
 		super();
 		this.userName = userName;
@@ -33,6 +40,7 @@ public class Person
 		this.lastName = lastName;
 		this.personalContact = personalContact;
 		this.professionalContact = professionalContact;
+		this.description = description;
 	}
 
 
@@ -46,6 +54,7 @@ public class Person
 	{
 		this.firstName = name;
 	}
+
 
 	public String getPass()
 	{
@@ -118,5 +127,36 @@ public class Person
 		this.professionalContact = professionalContact;
 	}
 
-	
+
+	public String getDescription()
+	{
+		return description;
+	}
+
+
+	public void setDescription(String description)
+	{
+		this.description = description;
+	}
+
+
+	@Override
+	public String toString()
+	{
+		ObjectMapper mapper = new ObjectMapper();
+
+		// Object to JSON in String
+		try
+		{
+			return mapper.writeValueAsString(this);
+		}
+		catch (JsonProcessingException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "";
+
+	}
 }
