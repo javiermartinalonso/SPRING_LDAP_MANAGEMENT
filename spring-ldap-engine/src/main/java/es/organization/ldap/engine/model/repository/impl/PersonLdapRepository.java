@@ -26,14 +26,15 @@ import es.organization.ldap.model.repository.PersonRepository;
 public class PersonLdapRepository implements PersonRepository
 {
 	//LOGGING
-	private static final Logger LOGGER = LoggerFactory.getLogger(PersonLdapRepository.class);
-	
+	private static final Logger	LOGGER	= LoggerFactory.getLogger(PersonLdapRepository.class);
+
 	/**
 	 * Básicamente, se apoya en una clase de plantilla de Spring para realizar
 	 * las consultas al servidor ldap y se encarga de mapear el resultado de las
 	 * consultas en un objeto de tipo Person (lo que haría un típico Dao).
 	 */
-	private LdapTemplate ldapTemplate;
+	private LdapTemplate		ldapTemplate;
+
 
 	/**
 	 * Constructor a partir de un LdapTemplate
@@ -44,9 +45,11 @@ public class PersonLdapRepository implements PersonRepository
 		this.ldapTemplate = ldapTemplate;
 	}
 
-	
+
 	/**
-	 * Devuelve la lista de personas que contiene la persona cuyo id coincide con el que se pasa como parámetro
+	 * Devuelve la lista de personas que contiene la persona cuyo id coincide
+	 * con el que se pasa como parámetro
+	 * 
 	 * @param String userId
 	 * @return List<Person>
 	 */
@@ -59,7 +62,9 @@ public class PersonLdapRepository implements PersonRepository
 
 
 	/**
-	 * Devuelve la lista de personas que contiene el grupo cuyo id se pasa como parámetro
+	 * Devuelve la lista de personas que contiene el grupo cuyo id se pasa como
+	 * parámetro
+	 * 
 	 * @param String groupId
 	 * @return List<Person>
 	 */
@@ -67,74 +72,78 @@ public class PersonLdapRepository implements PersonRepository
 	public List<Person> getByGroupUID(String groupId)
 	{
 		final List<Person> persons = new ArrayList<Person>();
-		
+
 		@SuppressWarnings("unchecked")
 		final List<String> userIds = (List<String>) ldapTemplate.search("", "(&(objectClass=group)(cn=" + groupId + "))", groupMapper()).get(0);
-		
+
 		LOGGER.info("LDAP Persons in  '" + groupId + "'");
-		
+
 		for (String userId : userIds)
 		{
-			LOGGER.info("Usuario: 'uid= " + userId + "'" );
+			LOGGER.info("Usuario: 'uid= " + userId + "'");
 			persons.add(getByUID(userId).get(0));
 		}
-		
+
 		return persons;
 	}
 
-	
+
 	/**
 	 * Te devuelve una lista de personas del LDAP, donde coincidan con los pares
 	 * de atributo/valor pasados como filtro a traves de un Map
+	 * 
 	 * @param Map<String, String> filter
 	 * @return List<Person>
 	 */
 	@Override
 	public List<Person> getByFilter(Map<String, String> filter)
-	{		
+	{
 		AndFilter andFilter = new AndFilter();
 		andFilter.and(new EqualsFilter("objectclass", "person"));
-		
+
 		// Recorremos los elementos que forman el filtro
 		Iterator<String> it = filter.keySet().iterator();
-		
-		while(it.hasNext())
+
+		while (it.hasNext())
 		{
 			String key = (String) it.next();
-			
+
 			//	andFilter.and(new EqualsFilter("sn", lastName));
-			andFilter.and(new EqualsFilter(key, filter.get(key)));			
+			andFilter.and(new EqualsFilter(key, filter.get(key)));
 		}
-		
+
 		LOGGER.info("LDAP Query " + andFilter.encode());
-		
-		return ldapTemplate.search("", andFilter.encode(),  personMapper());
+
+		return ldapTemplate.search("", andFilter.encode(), personMapper());
 	}
-	
-	
+
+
 	/**
-	 * Elimina una persona del LDAP cuyo identificador coincida con el del objeto
-	 * person pasado como parámetro
+	 * Elimina una persona del LDAP cuyo identificador coincida con el del
+	 * objeto person pasado como parámetro
+	 * 
 	 * @param Person person
 	 */
 	@Override
-	public void deleteContact(Person person)
+	public void deletePerson(Person person)
 	{
 		DistinguishedName newContactDN = new DistinguishedName("ou=people");
 		newContactDN.add("uid", person.getUserName());
 
-		LOGGER.info("Borrar Usuario: 'uid= " + person.getUserName() + "'" );
-		
+		LOGGER.info("Borrar Usuario: 'uid= " + person.getUserName() + "'");
+
 		ldapTemplate.unbind(newContactDN);
 	}
 
 
 	/**
-	 * Crea una nueva persona en el LDAP con el del objeto person pasado como parámetro
+	 * Crea una nueva persona en el LDAP con el del objeto person pasado como
+	 * parámetro
+	 * 
 	 * @param Person person
 	 */
 	@Override
-	public void insertContact(Person person)
+	public void insertPerson(Person person)
 	{
 
 		Attributes personAttributes = new BasicAttributes();
@@ -149,18 +158,20 @@ public class PersonLdapRepository implements PersonRepository
 		newPersonDN.add("uid", person.getUserName());
 
 		LOGGER.info("Insertar Usuario: 'uid= " + person.getUserName() + "'\n");
-		
+
 		ldapTemplate.bind(newPersonDN, null, personAttributes);
 	}
 
 
 	/**
-	 * Actualiza los datos de una persona del LDAP cuyo identificador coincida con el del objeto
-	 * person pasado como parámetro, actualizando los datos con los del objeto person.
+	 * Actualiza los datos de una persona del LDAP cuyo identificador coincida
+	 * con el del objeto person pasado como parámetro, actualizando los datos
+	 * con los del objeto person.
+	 * 
 	 * @param Person person
 	 */
 	@Override
-	public void updateContact(Person person)
+	public void updatePerson(Person person)
 	{
 		Attributes personAttributes = new BasicAttributes();
 		BasicAttribute personBasicAttribute = new BasicAttribute("objectclass");
@@ -174,13 +185,11 @@ public class PersonLdapRepository implements PersonRepository
 		newPersonDN.add("uid", person.getUserName());
 
 		LOGGER.info("Actualizar Usuario: 'uid= " + person.getUserName() + "'\n");
-		
+
 		ldapTemplate.rebind(newPersonDN, null, personAttributes);
 
 	}
-	
-	
-	
+
 
 	private AttributesMapper personMapper()
 	{
