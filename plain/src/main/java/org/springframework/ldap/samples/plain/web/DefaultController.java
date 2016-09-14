@@ -24,58 +24,76 @@ import java.net.URLEncoder;
  * @author Mattias Hellborg Arthursson
  */
 @Controller
-public class DefaultController {
+public class DefaultController
+{
 
 	@Autowired
-	private LdapTreeBuilder ldapTreeBuilder;
+	private LdapTreeBuilder	ldapTreeBuilder;
 
 	@Autowired
-	private PersonDao personDao;
+	private PersonDao		personDao;
+
 
 	@RequestMapping("/welcome.do")
-	public void welcomeHandler() {
+	public void welcomeHandler()
+	{
 	}
 
+
 	@RequestMapping("/showTree.do")
-	public ModelAndView showTree() {
+	public ModelAndView showTree()
+	{
 		LdapTree ldapTree = ldapTreeBuilder.getLdapTree(LdapUtils.emptyLdapName());
 		HtmlRowLdapTreeVisitor visitor = new PersonLinkHtmlRowLdapTreeVisitor();
 		ldapTree.traverse(visitor);
 		return new ModelAndView("showTree", "rows", visitor.getRows());
 	}
 
+
 	@RequestMapping("/addPerson.do")
-	public String addPerson() {
+	public String addPerson()
+	{
 		Person person = getPerson();
 
 		personDao.create(person);
 		return "redirect:/showTree.do";
 	}
 
+
 	@RequestMapping("/updatePhoneNumber.do")
-	public String updatePhoneNumber() {
+	public String updatePhoneNumber()
+	{
 		Person person = personDao.findByPrimaryKey("Sweden", "company1", "John Doe");
-		person.setPhone(StringUtils.join(new String[] { person.getPhone(), "0" }));
+		person.setPhone(StringUtils.join(new String[]
+			{
+					person.getPhone(), "0"
+			}));
 
 		personDao.update(person);
-        return "redirect:/showTree.do";
+		return "redirect:/showTree.do";
 	}
 
+
 	@RequestMapping("/removePerson.do")
-	public String removePerson() {
+	public String removePerson()
+	{
 		Person person = getPerson();
 
 		personDao.delete(person);
-        return "redirect:/showTree.do";
+		return "redirect:/showTree.do";
 	}
 
+
 	@RequestMapping("/showPerson.do")
-	public ModelMap showPerson(String country, String company, String fullName) {
+	public ModelMap showPerson(String country, String company, String fullName)
+	{
 		Person person = personDao.findByPrimaryKey(country, company, fullName);
 		return new ModelMap("person", person);
 	}
 
-	private Person getPerson() {
+
+	private Person getPerson()
+	{
 		Person person = new Person();
 		person.setFullName("John Doe");
 		person.setLastName("Doe");
@@ -90,11 +108,14 @@ public class DefaultController {
 	 * 
 	 * @author Mattias Hellborg Arthursson
 	 */
-	private static final class PersonLinkHtmlRowLdapTreeVisitor extends HtmlRowLdapTreeVisitor {
+	private static final class PersonLinkHtmlRowLdapTreeVisitor extends HtmlRowLdapTreeVisitor
+	{
 		@Override
-		protected String getLinkForNode(DirContextOperations node) {
+		protected String getLinkForNode(DirContextOperations node)
+		{
 			String[] objectClassValues = node.getStringAttributes("objectClass");
-			if (containsValue(objectClassValues, "person")) {
+			if (containsValue(objectClassValues, "person"))
+			{
 				Name dn = node.getDn();
 				String country = encodeValue(LdapUtils.getStringValue(dn, "c"));
 				String company = encodeValue(LdapUtils.getStringValue(dn, "ou"));
@@ -102,24 +123,33 @@ public class DefaultController {
 
 				return "showPerson.do?country=" + country + "&company=" + company + "&fullName=" + fullName;
 			}
-			else {
+			else
+			{
 				return super.getLinkForNode(node);
 			}
 		}
 
-		private String encodeValue(String value) {
-			try {
+
+		private String encodeValue(String value)
+		{
+			try
+			{
 				return URLEncoder.encode(value, "UTF8");
 			}
-			catch (UnsupportedEncodingException e) {
+			catch (UnsupportedEncodingException e)
+			{
 				// Not supposed to happen
 				throw new RuntimeException("Unexpected encoding exception", e);
 			}
 		}
 
-		private boolean containsValue(String[] values, String value) {
-			for (String oneValue : values) {
-				if (StringUtils.equals(oneValue, value)) {
+
+		private boolean containsValue(String[] values, String value)
+		{
+			for (String oneValue : values)
+			{
+				if (StringUtils.equals(oneValue, value))
+				{
 					return true;
 				}
 			}
