@@ -1,0 +1,74 @@
+version: 1
+
+dn: dc=acme,dc=spring,dc=ldap,dc=com
+objectClass: dcObject
+objectClass: organizationalUnit
+dc: acme
+ou: acme
+
+dn: ou=people,dc=acme,dc=spring,dc=ldap,dc=com
+objectClass: organizationalUnit
+ou: people
+
+dn: ou=applications,dc=acme,dc=spring,dc=ldap,dc=com
+objectClass: organizationalUnit
+ou: applications
+
+dn: ou=application,ou=applications,dc=acme,dc=spring,dc=ldap,dc=com
+objectClass: organizationalUnit
+ou: application
+
+dn: ou=groups,ou=application,ou=applications,dc=acme,dc=spring,dc=ldap,dc=com
+objectClass: organizationalUnit
+ou: groups
+
+dn: ou=people,ou=application,ou=applications,dc=acme,dc=spring,dc=ldap,dc=com
+objectClass: organizationalUnit
+ou: people
+
+dn: cn=admin,ou=groups,ou=application,ou=applications,dc=acme,dc=spring,dc=ldap,dc=com
+objectClass: groupOfUniqueNames
+objectClass: group
+cn: admin
+uniqueMember: uid=adminApplication,ou=people,ou=application,ou=applications,dc=acme,dc=spring,dc=ldap,dc=com
+
+dn: cn=user,ou=groups,ou=application,ou=applications,dc=acme,dc=spring,dc=ldap,dc=com
+objectClass: groupOfUniqueNames
+objectClass: group
+cn: user
+uniqueMember: uid=u123456789a,ou=people,ou=application,ou=applications,dc=acme,dc=spring,dc=ldap,dc=com
+uniqueMember: uid=u123123123,ou=people,ou=application,ou=applications,dc=acme,dc=spring,dc=ldap,dc=com
+
+dn: uid=adminApplication,ou=people,ou=application,ou=applications,dc=acme,dc=spring,dc=ldap,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: admin
+sn: admin
+uid: adminApplication
+userPassword:: cGFzcw==
+
+dn: uid=u123456789a,ou=people,dc=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: Javier Martin Alonso
+sn: Martin Alonso
+givenName: Javier Martin Alonso
+mail: javier.martin@acme.spring.ldap.com
+uid: u123456789a
+userPassword:: cGFzcw==
+
+dn: uid=u123123123,ou=people,dc=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: John Doe
+sn: Doe
+givenName: John Doe
+mail: john.doe@@acme.spring.ldap.com
+uid: u123123123
+userPassword:: cGFzcw==

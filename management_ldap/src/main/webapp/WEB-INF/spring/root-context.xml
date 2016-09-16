@@ -23,7 +23,7 @@
 	<!-- FICHEROS DE PROPIEDADES CON TRADUCCIONES DE LOS LITERALES DE LA APLICACIÓN A DISTINTOS IDIOMAS -->	
 	<import resource="classpath:/spring/support-beans.xml"/>
 
-
 	<!-- SERVICIOS DE OTROS MODULOS DE LOS QUE DEPENDE ESTA APLICACION-->
-
+	<import resource="classpath:/spring/ldapContext.xml"/>
+	
 </beans>

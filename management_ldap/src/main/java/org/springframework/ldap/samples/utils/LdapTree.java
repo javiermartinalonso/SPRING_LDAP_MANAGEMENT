@@ -67,6 +67,7 @@ public class LdapTree
 	private void traverse(LdapTreeVisitor visitor, int currentDepth)
 	{
 		visitor.visit(node, currentDepth);
+		
 		for (LdapTree subContext : subContexts)
 		{
 			subContext.traverse(visitor, currentDepth + 1);
