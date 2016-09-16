@@ -155,6 +155,7 @@ public class RestController
 		{
 			String[] objectClassValues = node.getStringAttributes("objectClass");
 			
+			
 			//SI ES UNA PERSONA GENERA UN STRING CON LA URL RELATIVA PARA EXPLORAR SUS DATOS
 			if (containsValue(objectClassValues, "person") || containsValue(objectClassValues, "organizationalPerson") || containsValue(objectClassValues, "inetOrgPerson"))
 			{
