@@ -25,32 +25,63 @@ import org.springframework.stereotype.Component;
 import javax.naming.Name;
 
 @Component
-public class LdapTreeBuilder {
+public class LdapTreeBuilder
+{
 
 	private LdapTemplate ldapTemplate;
 
-	public LdapTreeBuilder(LdapTemplate ldapTemplate) {
+
+	public LdapTreeBuilder(LdapTemplate ldapTemplate)
+	{
 		this.ldapTemplate = ldapTemplate;
 	}
 
-	public LdapTree getLdapTree(Name root) {
+	/**
+	 * Obtiene una estructura de arbol LDAP tomando como raiz el nodo pasado como parametro
+	 * @param root
+	 * @return
+	 */
+	public LdapTree getLdapTree(Name root)
+	{
+		//obtengo la ruta del nodo del que partimos para calcular el arbol
 		DirContextOperations context = ldapTemplate.lookupContext(root);
+		
+		//Obtenemos una estructura de arbol manejable con spring
 		return getLdapTree(context);
 	}
 
-	private LdapTree getLdapTree(final DirContextOperations rootContext) {
+
+	/**
+	 * Recorre de forma recursiva una estructura LDAP, a partir de la ruta indicada
+	 * Creando una estructura de arbol de LDAP que podamos manejar con Spring
+	 * @param rootContext
+	 * @return una estructura de arbol de LDAP que podamos manejar con Spring que se corresponde con 
+	 * el LDAP desde el nodo indicado como parametro
+	 */
+	private LdapTree getLdapTree(final DirContextOperations rootContext)
+	{
 		final LdapTree ldapTree = new LdapTree(rootContext);
-		ldapTemplate.listBindings(rootContext.getDn(),
-				new AbstractContextMapper<Object>() {
-					@Override
-					protected Object doMapFromContext(DirContextOperations ctx) {
-						Name dn = ctx.getDn();
-						dn = LdapUtils.prepend(dn, rootContext.getDn());
-						ldapTree.addSubTree(getLdapTree(ldapTemplate
-								.lookupContext(dn)));
-						return null;
-					}
-				});
+		
+		//Realizar un listado no recursivo de los hijos de la base dada. 
+		//El objeto devuelto en cada unión se suministra al ContextMapper especificado.
+		ldapTemplate.listBindings(rootContext.getDn(), new AbstractContextMapper<Object>()
+		{
+			@Override
+			protected Object doMapFromContext(DirContextOperations ctx)
+			{
+				//parte del contexto indicado como parámetro
+				Name dn = ctx.getDn();
+				//Anteponer la ruta proporcionada en el que comienza el nombre especificado si la instancia nombre comienza con la ruta. 
+				//El nombre original no se vera afectada.
+				dn = LdapUtils.prepend(dn, rootContext.getDn());
+				
+				//Inicializa una estructura de arbol LDAP tomando como raiz el nodo actual y a partir de el
+				//calcula los subarboles en los que se bifurca
+				ldapTree.addSubTree(getLdapTree(ldapTemplate.lookupContext(dn)));
+				
+				return null;
+			}
+		});
 
 		return ldapTree;
 	}

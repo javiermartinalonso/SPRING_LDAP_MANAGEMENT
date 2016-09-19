@@ -81,12 +81,14 @@ public class RestController
 	{
 		LOGGER.info("Muestro la organizacion");
 
-		//creamos una estructura de arbol de la conexion que tenemos contra el LDAP
+		//creamos una estructura de arbol de la conexion que tenemos contra el LDAP, al pasarle un nodo vacio recorre desde la raiz del LDAP.
 		LdapTree ldapTree = ldapTreeBuilder.getLdapTree(LdapUtils.emptyLdapName());
-		
+
 		//recorremos el arbol buscando los nodos de personas y monto una lista con los enlaces rest/htmls a la informacion de cada nodo
 		HtmlRowLdapTreeVisitor visitor = new PersonLinkHtmlRowLdapTreeVisitor();
+		//recorre el arbol LDAP y genera una lista en el objeto de introspeccion del arbol con los nodos en formato de links de html
 		ldapTree.traverse(visitor);
+		//lista donde cada elemento representa un link a la informacion de una persona definida en el LDAP
 		List<String> arbolLDAP = visitor.getRows();
 		//		return new ModelAndView("showTree", "rows", visitor.getRows());
 
@@ -143,9 +145,26 @@ public class RestController
 
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
-	 * Generates appropriate links for person leaves in the tree.
-	 * Recorre el arbol buscando los nodos de personas y monto una lista con los enlaces rest/htmls a la informacion de cada nodo
+	 * Generates appropriate links for person leaves in the tree. Recorre el
+	 * arbol buscando los nodos de personas y monto una lista con los enlaces
+	 * rest/htmls a la informacion de cada nodo
+	 * 
 	 * @author Mattias Hellborg Arthursson
 	 */
 	private static final class PersonLinkHtmlRowLdapTreeVisitor extends HtmlRowLdapTreeVisitor
@@ -154,15 +173,14 @@ public class RestController
 		protected String getLinkForNode(DirContextOperations node)
 		{
 			String[] objectClassValues = node.getStringAttributes("objectClass");
-			
-			
+
 			//SI ES UNA PERSONA GENERA UN STRING CON LA URL RELATIVA PARA EXPLORAR SUS DATOS
 			if (containsValue(objectClassValues, "person") || containsValue(objectClassValues, "organizationalPerson") || containsValue(objectClassValues, "inetOrgPerson"))
 			{
 				//OBTENEMOS EL ID DEL NODO
 				//POR EJEMPLO dn : cn=Some Person,ou=company1,c=Sweden
 				Name dn = node.getDn();
-				
+
 				String country = encodeValue(LdapUtils.getStringValue(dn, "c"));
 				String company = encodeValue(LdapUtils.getStringValue(dn, "ou"));
 				String fullName = encodeValue(LdapUtils.getStringValue(dn, "cn"));
@@ -175,8 +193,10 @@ public class RestController
 			}
 		}
 
+
 		/**
 		 * Devuelve un String correctamente codificado para usar en una url
+		 * 
 		 * @param value
 		 * @return
 		 */
@@ -195,7 +215,9 @@ public class RestController
 
 
 		/**
-		 * Comprueba si un String 'value' se encuentra contenido en el array de strings 'values'
+		 * Comprueba si un String 'value' se encuentra contenido en el array de
+		 * strings 'values'
+		 * 
 		 * @param values
 		 * @param value
 		 * @return

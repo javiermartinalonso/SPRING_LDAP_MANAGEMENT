@@ -22,7 +22,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Recorre el arbol del Ldap y en rows guarda una lista con los links html a cada nodo.
+ * Implementacion de un recorrido completo de un arbol LDAP, en este caso el
+ * resultado se devuelve en forma de links html a cada nodo Recorre el arbol del
+ * Ldap y en rows guarda una lista con los links html a cada nodo.
+ * 
  * @author javier.martin
  *
  */
@@ -32,10 +35,21 @@ public class HtmlRowLdapTreeVisitor implements LdapTreeVisitor
 	private List<String> rows = new LinkedList<String>();
 
 
+	/**
+	 * Recorre una estructura de arbol que representa una rama de un LDAP y
+	 * rellena una lista donde cada elemento es la representación que hemos
+	 * elegido para un nodo del arbol. En este caso presentamos el nodo como un
+	 * link html.
+	 * 
+	 * @param node estructura de arbol que representa una rama de un LDAP, nodo
+	 *            del que partimos
+	 * @param currentDepth profundidad a partir del nodo actual que vamos a
+	 *            recorrer
+	 */
 	public void visit(DirContextOperations node, int currentDepth)
 	{
 		StringBuilder sb = new StringBuilder();
-		
+
 		for (int i = 0; i < currentDepth; i++)
 		{
 			sb.append("&nbsp;&nbsp;&nbsp;&nbsp;");
