@@ -161,6 +161,8 @@ public class RestController
 	
 	
 	/**
+	 * Clase que extiende de HtmlRowLdapTreeVisitor, 
+	 * sobreescribiendo la forma en la que generamos los urls de acceso a la información de un nodo.
 	 * Generates appropriate links for person leaves in the tree. Recorre el
 	 * arbol buscando los nodos de personas y monto una lista con los enlaces
 	 * rest/htmls a la informacion de cada nodo

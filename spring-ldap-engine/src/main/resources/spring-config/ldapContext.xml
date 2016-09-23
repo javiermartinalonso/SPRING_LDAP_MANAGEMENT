@@ -23,8 +23,13 @@
     </bean>
     
     <!--  lo va a asociar a la plantilla de spring y ésta será inyectada en nuestro servicio.  -->
-    <bean id="personRepository" class="es.organization.ldap.engine.model.repository.impl.PersonLdapRepository">
+    <bean id="personRepository" class="es.organization.ldap.engine.model.repository.PersonLdapRepository">
     	<constructor-arg ref="ldapTemplate"/>
     </bean>
+    
+    <!--  lo va a asociar a la plantilla de spring y ésta será inyectada en nuestro servicio.  -->
+    <bean id="treeLdapRepository" class="es.organization.ldap.engine.model.repository.TreeLdapRepository">
+    	<constructor-arg ref="ldapTemplate"/>
+    </bean>     
     
 </beans>

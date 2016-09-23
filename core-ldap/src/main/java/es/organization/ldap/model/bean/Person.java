@@ -1,46 +1,99 @@
 package es.organization.ldap.model.bean;
 
+import javax.naming.Name;
+
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.springframework.ldap.odm.annotations.Attribute;
+import org.springframework.ldap.odm.annotations.DnAttribute;
+import org.springframework.ldap.odm.annotations.Entry;
+import org.springframework.ldap.odm.annotations.Id;
+import org.springframework.ldap.odm.annotations.Transient;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+@Entry(objectClasses =
+	{
+			"top", "inetOrgPerson", "person", "organizationalPerson"
+	})
 public class Person
 {
+	@Id
+	private Name	dn;
 
-	private String				userName;
+	@Attribute(name = "cn")
+	@DnAttribute(value = "cn", index = 2)
+	private String	fullName;
 
-	private String				pass;
+	@Attribute(name = "sn")
+	private String	lastName;
+	
+	@Attribute(name = "description")
+	private String	description;
+	
+	@Transient
+	@DnAttribute(value = "ou", index = 0)
+	private String	company;
+	
+	@Transient
+	@DnAttribute(value = "ou", index = 1)
+	private String	path;
 
-	private String				firstName;
+	@Attribute(name = "telephoneNumber")
+	private String	phone;
 
-	private String				lastName;
+	private String	userName;
 
-	private ContactInformation	personalContact;
+	private String	pass;
 
-	private ContactInformation	professionalContact;
+	private String	firstName;
 
-	private String				description;
+
+
+
+	//	private ContactInformation	personalContact;
+	//
+	//	private ContactInformation	professionalContact;
+
+
+
+	private String	email;
 
 
 	public Person()
 	{
 		super();
 
-		this.personalContact = new ContactInformation();
-		this.professionalContact = new ContactInformation();
-		;
+		//		this.personalContact = new ContactInformation();
+		//		this.professionalContact = new ContactInformation();
 	}
 
 
-	public Person(String userName, String pass, String firstName, String lastName, ContactInformation personalContact, ContactInformation professionalContact, String description)
+	//	public Person(String userName, String pass, String firstName, String lastName, ContactInformation personalContact, ContactInformation professionalContact, String description)
+	public Person(String userName, String pass, String firstName, String lastName, String description, String email)
 	{
 		super();
 		this.userName = userName;
 		this.pass = pass;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.personalContact = personalContact;
-		this.professionalContact = professionalContact;
+		//		this.personalContact = personalContact;
+		//		this.professionalContact = professionalContact;
 		this.description = description;
+		this.description = email;
+	}
+
+
+	public Name getDn()
+	{
+		return dn;
+	}
+
+
+	public void setDn(Name dn)
+	{
+		this.dn = dn;
 	}
 
 
@@ -53,6 +106,42 @@ public class Person
 	public void setName(String name)
 	{
 		this.firstName = name;
+	}
+
+
+	public String getFullName()
+	{
+		return fullName;
+	}
+
+
+	public void setFullName(String fullName)
+	{
+		this.fullName = fullName;
+	}
+
+
+	public String getPath()
+	{
+		return path;
+	}
+
+
+	public void setPath(String path)
+	{
+		this.path = path;
+	}
+
+
+	public String getCompany()
+	{
+		return company;
+	}
+
+
+	public void setCompany(String company)
+	{
+		this.company = company;
 	}
 
 
@@ -104,27 +193,38 @@ public class Person
 	}
 
 
-	public ContactInformation getPersonalContact()
+	//	public ContactInformation getPersonalContact()
+	//	{
+	//		return personalContact;
+	//	}
+	//
+	//
+	//	public void setPersonalContact(ContactInformation personalContact)
+	//	{
+	//		this.personalContact = personalContact;
+	//	}
+	//
+	//
+	//	public ContactInformation getProfessionalContact()
+	//	{
+	//		return professionalContact;
+	//	}
+	//
+	//
+	//	public void setProfessionalContact(ContactInformation professionalContact)
+	//	{
+	//		this.professionalContact = professionalContact;
+	//	}
+
+	public String getEmail()
 	{
-		return personalContact;
+		return email;
 	}
 
 
-	public void setPersonalContact(ContactInformation personalContact)
+	public void setEmail(String email)
 	{
-		this.personalContact = personalContact;
-	}
-
-
-	public ContactInformation getProfessionalContact()
-	{
-		return professionalContact;
-	}
-
-
-	public void setProfessionalContact(ContactInformation professionalContact)
-	{
-		this.professionalContact = professionalContact;
+		this.email = email;
 	}
 
 
@@ -140,6 +240,22 @@ public class Person
 	}
 
 
+	public boolean equals(Object obj)
+	{
+		return EqualsBuilder.reflectionEquals(this, obj);
+	}
+
+
+	public int hashCode()
+	{
+		return HashCodeBuilder.reflectionHashCode(this);
+	}
+
+
+	//	public String toString()
+	//	{
+	//		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+	//	}
 	@Override
 	public String toString()
 	{

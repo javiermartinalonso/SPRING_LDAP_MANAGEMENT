@@ -30,29 +30,35 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ContextConfiguration(locations = { "/config/testContext.xml" })
-public class LdapTreeBuilderIntegrationTest extends AbstractJUnit4SpringContextTests {
+@ContextConfiguration(locations ={"/config/testContext.xml"	})
+public class LdapTreeBuilderIntegrationTest extends AbstractJUnit4SpringContextTests
+{
 
 	@Autowired
 	private LdapTreeBuilder tested;
 
+
 	@Test
-	public void testGetLdapTree() {
+	public void testGetLdapTree()
+	{
 		LdapTree ldapTree = tested.getLdapTree(LdapUtils.newLdapName("c=Sweden"));
 		ldapTree.traverse(new TestVisitor());
 	}
 
-	private static final class TestVisitor implements LdapTreeVisitor {
-		private static final LdapName DN_1 = LdapUtils.newLdapName("c=Sweden");
-		private static final LdapName DN_2 = LdapUtils.newLdapName("ou=company1,c=Sweden");
-		private static final LdapName DN_3 = LdapUtils.newLdapName("cn=Some Person,ou=company1,c=Sweden");
-		private static final LdapName DN_4 = LdapUtils.newLdapName("cn=Some Person2,ou=company1,c=Sweden");
+	private static final class TestVisitor implements LdapTreeVisitor
+	{
+		private static final LdapName	DN_1	= LdapUtils.newLdapName("c=Sweden");
+		private static final LdapName	DN_2	= LdapUtils.newLdapName("ou=company1,c=Sweden");
+		private static final LdapName	DN_3	= LdapUtils.newLdapName("cn=Some Person,ou=company1,c=Sweden");
+		private static final LdapName	DN_4	= LdapUtils.newLdapName("cn=Some Person2,ou=company1,c=Sweden");
 
-		private Map<LdapName, Integer> names = new LinkedHashMap<LdapName, Integer>();
+		private Map<LdapName, Integer>	names	= new LinkedHashMap<LdapName, Integer>();
 
-		private Iterator<LdapName> keyIterator;
+		private Iterator<LdapName>		keyIterator;
 
-		public TestVisitor() {
+
+		public TestVisitor()
+		{
 			names.put(DN_1, 0);
 			names.put(DN_2, 1);
 			names.put(DN_3, 2);
@@ -61,7 +67,9 @@ public class LdapTreeBuilderIntegrationTest extends AbstractJUnit4SpringContextT
 			keyIterator = names.keySet().iterator();
 		}
 
-		public void visit(DirContextOperations node, int currentDepth) {
+
+		public void visit(DirContextOperations node, int currentDepth)
+		{
 			LdapName next = keyIterator.next();
 			assertThat(node.getDn()).isEqualTo(next);
 			assertThat(currentDepth).isEqualTo(names.get(next).intValue());

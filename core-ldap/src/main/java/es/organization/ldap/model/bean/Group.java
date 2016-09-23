@@ -10,6 +10,7 @@ public class Group
 	private String name;
 	private String displayName;
 	private String Description;
+	private String father;
 	private List<Group> groups;
 	private List<Rol> members;
 	public String getName() {
@@ -26,6 +27,14 @@ public class Group
 	}
 	public String getDescription() {
 		return Description;
+	}
+	public String getFather()
+	{
+		return father;
+	}
+	public void setFather(String father)
+	{
+		this.father = father;
 	}
 	public void setDescription(String description) {
 		Description = description;

@@ -32,7 +32,7 @@
     <ldap:ldap-template id="ldapTemplate" context-source-ref="contextSource"/>
     
     
-        <!-- servicio para hacer una inspeccion completa del LDAP -->
+    <!-- servicio para hacer una inspeccion completa del LDAP -->
     <bean id="ldapTreeBuilder" class="org.springframework.ldap.samples.utils.LdapTreeBuilder">
         <constructor-arg ref="ldapTemplate" />
     </bean>

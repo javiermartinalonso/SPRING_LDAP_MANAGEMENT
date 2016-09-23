@@ -75,12 +75,12 @@ public class PersonLdapRepositoryTest
 		System.out.println(persons.toString());
 		assertEquals(0, persons.size());
 
-		personRepository.insertPerson(person);
+		personRepository.insert(person);
 
 		persons = personRepository.getByUID(person.getUserName());
 		assertEquals(1, persons.size());
 
-		personRepository.deletePerson(persons.get(0));
+		personRepository.delete(persons.get(0));
 
 		persons = personRepository.getByUID(person.getUserName());
 		System.out.println(persons.toString());
@@ -100,7 +100,7 @@ public class PersonLdapRepositoryTest
 		System.out.println(persons.toString());
 		assertEquals(0, persons.size());
 
-		personRepository.insertPerson(person);
+		personRepository.insert(person);
 
 		persons = personRepository.getByUID(person.getUserName());
 		System.out.println(persons.toString());
@@ -109,7 +109,7 @@ public class PersonLdapRepositoryTest
 		person.setName("persona_update2");
 		person.getProfessionalContact().setEmail("persona_update2");
 
-		personRepository.updatePerson(person);
+		personRepository.update(person);
 
 		Map<String, String> filter = new HashMap<String, String>();
 		filter.put("cn", "persona_update2");
@@ -119,7 +119,7 @@ public class PersonLdapRepositoryTest
 		System.out.println(persons.toString());
 		assertEquals(1, persons.size());
 
-		personRepository.deletePerson(persons.get(0));
+		personRepository.delete(persons.get(0));
 
 		persons = personRepository.getByUID(person.getUserName());
 		System.out.println(persons.toString());
@@ -140,13 +140,13 @@ public class PersonLdapRepositoryTest
 		System.out.println(persons.toString());
 		assertEquals(0, persons.size());
 
-		personRepository.insertPerson(person);
+		personRepository.insert(person);
 
 		persons = personRepository.getByUID(person.getUserName());
 		System.out.println(persons.toString());
 		assertEquals(1, persons.size());
 
-		personRepository.deletePerson(persons.get(0));
+		personRepository.delete(persons.get(0));
 
 		persons = personRepository.getByUID(person.getUserName());
 		System.out.println(persons.toString());

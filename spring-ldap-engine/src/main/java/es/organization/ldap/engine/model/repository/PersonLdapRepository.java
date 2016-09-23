@@ -1,4 +1,4 @@
-package es.organization.ldap.engine.model.repository.impl;
+package es.organization.ldap.engine.model.repository;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -125,7 +125,7 @@ public class PersonLdapRepository implements PersonRepository
 	 * @param Person person
 	 */
 	@Override
-	public void deletePerson(Person person)
+	public void delete(Person person)
 	{
 		DistinguishedName newContactDN = new DistinguishedName("ou=people");
 		newContactDN.add("uid", person.getUserName());
@@ -143,7 +143,7 @@ public class PersonLdapRepository implements PersonRepository
 	 * @param Person person
 	 */
 	@Override
-	public void insertPerson(Person person)
+	public void insert(Person person)
 	{
 
 		Attributes personAttributes = new BasicAttributes();
@@ -171,7 +171,7 @@ public class PersonLdapRepository implements PersonRepository
 	 * @param Person person
 	 */
 	@Override
-	public void updatePerson(Person person)
+	public void update(Person person)
 	{
 		Attributes personAttributes = new BasicAttributes();
 		BasicAttribute personBasicAttribute = new BasicAttribute("objectclass");
