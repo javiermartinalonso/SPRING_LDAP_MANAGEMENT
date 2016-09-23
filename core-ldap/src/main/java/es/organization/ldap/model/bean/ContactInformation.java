@@ -1,5 +1,7 @@
 package es.organization.ldap.model.bean;
 
+import org.springframework.ldap.odm.annotations.Attribute;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -7,6 +9,7 @@ public class ContactInformation
 {
 	private String	email;
 	
+	@Attribute(name = "telephoneNumber")
 	private String	phone;
 	
 	private String	mobile;

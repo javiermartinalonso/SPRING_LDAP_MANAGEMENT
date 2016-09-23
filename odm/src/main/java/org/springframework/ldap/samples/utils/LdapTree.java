@@ -21,52 +21,91 @@ import java.util.List;
 
 import org.springframework.ldap.core.DirContextOperations;
 
+/**
+ * Estructura que representa un arbol LDAP 
+ * @author javier.martin
+ *
+ */
 public class LdapTree
 {
+	//Nodo raiz del arbol LDAP
 	private final DirContextOperations	node;
 
+	//Ramas del arbol LDAP
 	private List<LdapTree>				subContexts	= new LinkedList<LdapTree>();
 
-
+	/**Constructor 
+	 * Esta clase representa una estructura de un arbol LDAP
+	 * @param node nodo inicial del arbol LDAP
+	 */
 	public LdapTree(DirContextOperations node)
 	{
 		this.node = node;
 	}
 
-
+	/**
+	 * devuelve el nodo del LDAP que es raiz del arbol LDAP
+	 * @return
+	 */
 	public DirContextOperations getNode()
 	{
 		return node;
 	}
 
-
+	/**
+	 * Devuelve las ramas del arbol
+	 * @return
+	 */
 	public List<LdapTree> getSubContexts()
 	{
 		return subContexts;
 	}
 
-
+	/**
+	 * sustituye las ramas del arbol por las ramas pasadas como paramtero
+	 * @param subContexts
+	 */
 	public void setSubContexts(List<LdapTree> subContexts)
 	{
 		this.subContexts = subContexts;
 	}
 
-
+	/**
+	 * aniade una rama nueva al arbol
+	 * @param ldapTree
+	 */
 	public void addSubTree(LdapTree ldapTree)
 	{
 		subContexts.add(ldapTree);
 	}
 
-
+	/**
+	 * Recorre una estructura de arbol que representa un LDAP y rellena una lista donde cada elemento es la representación que hemos
+	 * elegido para un nodo del arbol. Podriamos presentar el nodo como un link html, como un objeto rest, etc. 
+	 * @param visitor
+	 */
 	public void traverse(LdapTreeVisitor visitor)
 	{
 		traverse(visitor, 0);
 	}
 
-
+	
+	/**
+	 * Recorre una estructura de arbol que representa un LDAP y rellena una
+	 * lista donde cada elemento es la representación que hemos elegido para un
+	 * nodo del arbol. Podriamos presentar el nodo como un link html, como un
+	 * objeto rest, etc.
+	 * 
+	 * @param visitor Interfaz que define como se van a presentar los datos de
+	 *            los nodos que recorramos
+	 * @param currentDepth nodo del que partimos del arbol dado para recorrerlo
+	 */
 	private void traverse(LdapTreeVisitor visitor, int currentDepth)
 	{
+		//Recoremos el nodo actual y lo presentamos
 		visitor.visit(node, currentDepth);
+		
+		//Recorremos las ramas del arbol
 		for (LdapTree subContext : subContexts)
 		{
 			subContext.traverse(visitor, currentDepth + 1);

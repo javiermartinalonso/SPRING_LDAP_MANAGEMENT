@@ -19,23 +19,46 @@ import org.springframework.ldap.samples.plain.domain.Person;
 
 import java.util.List;
 
-
 /**
  * Data Access Object interface for the Person entity.
  * 
  * @author Mattias Hellborg Arthursson
  * @author Ulrik Sandberg
  */
-public interface PersonDao {
-   void create(Person person);
+public interface PersonDao
+{
+	/**
+	 * Da de alta una persona en el LDAP
+	 */
+	void create(Person person);
 
-   void update(Person person);
 
-   void delete(Person person);
+	/**
+	 * Actualiza una persona existente en el LDAP
+	 */
+	void update(Person person);
 
-   List<String> getAllPersonNames();
 
-   List<Person> findAll();
+	/**
+	 * Borra una persona existente en el LDAP
+	 */
+	void delete(Person person);
 
-   Person findByPrimaryKey(String country, String company, String fullname);
+
+	/**
+	 * Obtiene una lista con el nombre de todas las personas existentes en el LDAP
+	 */
+	List<String> getAllPersonNames();
+
+
+	/**
+	 * Obtiene una lista con todas las personas existentes en el LDAP
+	 */
+	List<Person> findAll();
+
+
+	/**
+	 * Obtiene una Persona del LDAP con el dn formado por los siguientes parametros
+	 */
+	Person findByPrimaryKey(String country, String company, String fullname);
 }

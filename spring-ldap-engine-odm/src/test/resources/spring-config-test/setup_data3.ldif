@@ -1,0 +1,440 @@
+dn: ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: acme
+
+dn: ou=people,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: people
+
+dn: ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: applications
+
+dn: ou=application1,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: application1
+
+dn: ou=groups,ou=application1,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: groups
+
+dn: ou=people,ou=application1,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: people
+
+dn: cn=John Doe,ou=people,ou=application1,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: organizationalPerson
+cn: John Doe
+sn: Doe
+employeeNumber: 1
+givenName: John
+mail: john.doe@example.com
+telephoneNumber: +46 555-123456
+title: Senior Programmer
+
+dn: cn=Some Dude,ou=people,ou=application1,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: organizationalPerson
+cn: Some Dude
+sn: Dude
+employeeNumber: 2
+givenName: Some
+mail: some.dude@example.com
+telephoneNumber: +46 555-123457
+title: Architect
+
+dn: cn=John Smith,ou=people,ou=application1,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: organizationalPerson
+cn: John Smith
+sn: Smith
+employeeNumber: 3
+givenName: John
+mail: john.smith@example.com
+telephoneNumber: +46 555-123458
+title: Support Engineer
+
+dn: cn=Mordac Preventor of IS,ou=people,ou=application1,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: organizationalPerson
+cn: Mordac Preventor of IS
+sn: Preventor
+employeeNumber: 3
+givenName: Mordac
+mail: mordac.preventor@example.com
+telephoneNumber: +46 555-123460
+title: I/S Engineer
+
+dn: cn=System,ou=people,ou=application1,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: organizationalPerson
+cn: System
+sn: System
+employeeNumber: -1
+
+dn: cn=Jane Doe,ou=people,ou=application1,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: organizationalPerson
+cn: Jane Doe
+sn: Doe
+employeeNumber: 4
+givenName: Jane
+mail: jane.doe@example.com
+telephoneNumber: +46 555-123459
+title: Accounting Responsible
+
+dn: cn=ROLE_USER,ou=groups,ou=application1,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: groupOfNames
+cn: ROLE_USER
+member: cn=System,ou=people,ou=application,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+member: cn=John Doe,ou=people,ou=application,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+member: cn=Some Dude,ou=people,ou=application,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+member: cn=John Smith,ou=people,ou=application,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+member: cn=Jane Doe,ou=people,ou=application,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+member: cn=Mordac Preventor of IS,ou=people,ou=application,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+description: Ordinary Users
+
+dn: cn=POWER_USER,ou=groups,ou=application1,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: groupOfNames
+cn: POWER_USER
+member: cn=System,ou=System,ou=people,ou=application,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+member: cn=Mordac Preventor of IS,ou=people,ou=application,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+description: Some More Privileges
+
+dn: cn=ROLE_ADMIN,ou=groups,ou=application1,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: groupOfNames
+cn: ROLE_ADMIN
+member: cn=System,ou=System,ou=people,ou=application,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+member: cn=Mordac Preventor of IS,ou=people,ou=application,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+description: Super Users
+
+dn: ou=application2,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: application2
+
+dn: ou=groups,ou=application2,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: groups
+
+dn: cn=ROLE_USER,ou=groups,ou=application2,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: groupOfNames
+cn: ROLE_USER
+member: cn=System,ou=people,ou=application,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+member: cn=John Doe,ou=people,ou=application,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+member: cn=Some Dude,ou=people,ou=application,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+member: cn=John Smith,ou=people,ou=application,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+member: cn=Jane Doe,ou=people,ou=application,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+member: cn=Mordac Preventor of IS,ou=people,ou=application,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+description: Ordinary Users
+
+dn: cn=POWER_USER,ou=groups,ou=application2,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: groupOfNames
+cn: POWER_USER
+member: cn=System,ou=System,ou=people,ou=application,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+member: cn=Mordac Preventor of IS,ou=people,ou=application,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+description: Some More Privileges
+
+dn: cn=ROLE_ADMIN,ou=groups,ou=application2,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: groupOfNames
+cn: ROLE_ADMIN
+member: cn=System,ou=System,ou=people,ou=application,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+member: cn=Mordac Preventor of IS,ou=people,ou=application,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+description: Super Users
+
+dn: ou=people,ou=application2,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: people
+
+dn: cn=John Doe,ou=people,ou=application2,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: organizationalPerson
+cn: John Doe
+sn: Doe
+employeeNumber: 1
+givenName: John
+mail: john.doe@example.com
+telephoneNumber: +46 555-123456
+title: Senior Programmer
+
+dn: cn=Some Dude,ou=people,ou=application2,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: organizationalPerson
+cn: Some Dude
+sn: Dude
+employeeNumber: 2
+givenName: Some
+mail: some.dude@example.com
+telephoneNumber: +46 555-123457
+title: Architect
+
+dn: cn=John Smith,ou=people,ou=application2,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: organizationalPerson
+cn: John Smith
+sn: Smith
+employeeNumber: 3
+givenName: John
+mail: john.smith@example.com
+telephoneNumber: +46 555-123458
+title: Support Engineer
+
+dn: cn=Mordac Preventor of IS,ou=people,ou=application2,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: organizationalPerson
+cn: Mordac Preventor of IS
+sn: Preventor
+employeeNumber: 3
+givenName: Mordac
+mail: mordac.preventor@example.com
+telephoneNumber: +46 555-123460
+title: I/S Engineer
+
+dn: cn=System,ou=people,ou=application2,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: organizationalPerson
+cn: System
+sn: System
+employeeNumber: -1
+
+dn: cn=Jane Doe,ou=people,ou=application2,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: organizationalPerson
+cn: Jane Doe
+sn: Doe
+employeeNumber: 4
+givenName: Jane
+mail: jane.doe@example.com
+telephoneNumber: +46 555-123459
+title: Accounting Responsible
+
+dn: ou=application3,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: application3
+
+dn: ou=groups,ou=application3,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: groups
+
+dn: cn=ROLE_USER,ou=groups,ou=application3,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: groupOfNames
+cn: ROLE_USER
+member: cn=System,ou=people,ou=application,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+member: cn=John Doe,ou=people,ou=application,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+member: cn=Some Dude,ou=people,ou=application,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+member: cn=John Smith,ou=people,ou=application,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+member: cn=Jane Doe,ou=people,ou=application,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+member: cn=Mordac Preventor of IS,ou=people,ou=application,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+description: Ordinary Users
+
+dn: cn=POWER_USER,ou=groups,ou=application3,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: groupOfNames
+cn: POWER_USER
+member: cn=System,ou=System,ou=people,ou=application,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+member: cn=Mordac Preventor of IS,ou=people,ou=application,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+description: Some More Privileges
+
+dn: cn=ROLE_ADMIN,ou=groups,ou=application3,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: groupOfNames
+cn: ROLE_ADMIN
+member: cn=System,ou=System,ou=people,ou=application,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+member: cn=Mordac Preventor of IS,ou=people,ou=application,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+description: Super Users
+
+dn: ou=people,ou=application3,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: people
+
+dn: cn=John Doe,ou=people,ou=application3,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: organizationalPerson
+cn: John Doe
+sn: Doe
+employeeNumber: 1
+givenName: John
+mail: john.doe@example.com
+telephoneNumber: +46 555-123456
+title: Senior Programmer
+
+dn: cn=Some Dude,ou=people,ou=application3,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: organizationalPerson
+cn: Some Dude
+sn: Dude
+employeeNumber: 2
+givenName: Some
+mail: some.dude@example.com
+telephoneNumber: +46 555-123457
+title: Architect
+
+dn: cn=John Smith,ou=people,ou=application3,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: organizationalPerson
+cn: John Smith
+sn: Smith
+employeeNumber: 3
+givenName: John
+mail: john.smith@example.com
+telephoneNumber: +46 555-123458
+title: Support Engineer
+
+dn: cn=Mordac Preventor of IS,ou=people,ou=application3,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: organizationalPerson
+cn: Mordac Preventor of IS
+sn: Preventor
+employeeNumber: 3
+givenName: Mordac
+mail: mordac.preventor@example.com
+telephoneNumber: +46 555-123460
+title: I/S Engineer
+
+dn: cn=System,ou=people,ou=application3,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: organizationalPerson
+cn: System
+sn: System
+employeeNumber: -1
+
+dn: cn=Jane Doe,ou=people,ou=application3,ou=applications,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: organizationalPerson
+cn: Jane Doe
+sn: Doe
+employeeNumber: 4
+givenName: Jane
+mail: jane.doe@example.com
+telephoneNumber: +46 555-123459
+title: Accounting Responsible
+
+dn: cn=Jane Doe,ou=people,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: organizationalPerson
+cn: Jane Doe
+sn: Doe
+employeeNumber: 4
+givenName: Jane
+mail: jane.doe@example.com
+telephoneNumber: +46 555-123459
+title: Accounting Responsible
+
+dn: cn=John Doe,ou=people,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: organizationalPerson
+cn: John Doe
+sn: Doe
+employeeNumber: 1
+givenName: John
+mail: john.doe@example.com
+telephoneNumber: +46 555-123456
+title: Senior Programmer
+
+dn: cn=John Smith,ou=people,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: organizationalPerson
+cn: John Smith
+sn: Smith
+employeeNumber: 3
+givenName: John
+mail: john.smith@example.com
+telephoneNumber: +46 555-123458
+title: Support Engineer
+
+dn: cn=Mordac Preventor of IS,ou=people,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: organizationalPerson
+cn: Mordac Preventor of IS
+sn: Preventor
+employeeNumber: 3
+givenName: Mordac
+mail: mordac.preventor@example.com
+telephoneNumber: +46 555-123460
+title: I/S Engineer
+
+dn: cn=Some Dude,ou=people,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: organizationalPerson
+cn: Some Dude
+sn: Dude
+employeeNumber: 2
+givenName: Some
+mail: some.dude@example.com
+telephoneNumber: +46 555-123457
+title: Architect
+
+dn: cn=System,ou=people,ou=acme,dc=spring,dc=ldap,dc=com
+objectClass: top
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: organizationalPerson
+cn: System
+sn: System
+employeeNumber: -1
+

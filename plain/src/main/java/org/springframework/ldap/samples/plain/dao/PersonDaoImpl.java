@@ -35,9 +35,10 @@ import static org.springframework.ldap.query.LdapQueryBuilder.query;
 
 /**
  * Default implementation of PersonDao. This implementation uses
- * DirContextAdapter for managing attribute values. We use a ContextMapper
- * to map from the found contexts to our domain objects. This is especially useful
- * since we in this case have properties in our domain objects that depend on parts of the DN.
+ * DirContextAdapter for managing attribute values. We use a ContextMapper to
+ * map from the found contexts to our domain objects. This is especially useful
+ * since we in this case have properties in our domain objects that depend on
+ * parts of the DN.
  * 
  * We could have worked with Attributes and an AttributesMapper implementation
  * instead, but working with Attributes is a bore and also, working with
@@ -48,70 +49,123 @@ import static org.springframework.ldap.query.LdapQueryBuilder.query;
  * @author Mattias Hellborg Arthursson
  * @author Ulrik Sandberg
  */
-public class PersonDaoImpl implements PersonDao {
+public class PersonDaoImpl implements PersonDao
+{
 
 	private LdapTemplate ldapTemplate;
 
-    @Override
-	public void create(Person person) {
+
+	public void setLdapTemplate(LdapTemplate ldapTemplate)
+	{
+		this.ldapTemplate = ldapTemplate;
+	}
+
+
+	/**
+	 * Da de alta una persona en el LDAP
+	 */
+	@Override
+	public void create(Person person)
+	{
 		Name dn = buildDn(person);
 		DirContextAdapter context = new DirContextAdapter(dn);
 		mapToContext(person, context);
 		ldapTemplate.bind(dn, context, null);
 	}
 
-    @Override
-	public void update(Person person) {
+
+	/**
+	 * Actualiza una persona existente en el LDAP
+	 */
+	@Override
+	public void update(Person person)
+	{
 		Name dn = buildDn(person);
 		DirContextAdapter context = (DirContextAdapter) ldapTemplate.lookup(dn);
 		mapToContext(person, context);
 		ldapTemplate.modifyAttributes(dn, context.getModificationItems());
 	}
 
-    @Override
-	public void delete(Person person) {
+
+	/**
+	 * Borra una persona existente en el LDAP
+	 */
+	@Override
+	public void delete(Person person)
+	{
 		ldapTemplate.unbind(buildDn(person));
 	}
 
-    @Override
-	public List<String> getAllPersonNames() {
-        return ldapTemplate.search(query()
-                .attributes("cn")
-                .where("objectclass").is("person"),
-                new AttributesMapper<String>() {
-                    public String mapFromAttributes(Attributes attrs) throws NamingException {
-                        return attrs.get("cn").get().toString();
-                    }
-                });
-    }
 
-    @Override
-	public List<Person> findAll() {
-		return ldapTemplate.search(query()
-                .where("objectclass").is("person"),
-                PERSON_CONTEXT_MAPPER);
+	/**
+	 * Obtiene una lista con el nombre de todas las personas existentes en el
+	 * LDAP
+	 */
+	@Override
+	public List<String> getAllPersonNames()
+	{
+		return ldapTemplate.search(query().attributes("cn").where("objectclass").is("person"), new AttributesMapper<String>()
+		{
+			public String mapFromAttributes(Attributes attrs) throws NamingException
+			{
+				return attrs.get("cn").get().toString();
+			}
+		});
 	}
 
-    @Override
-	public Person findByPrimaryKey(String country, String company, String fullname) {
+
+	/**
+	 * Obtiene una lista con todas las personas existentes en el LDAP
+	 */
+	@Override
+	public List<Person> findAll()
+	{
+		return ldapTemplate.search(query().where("objectclass").is("person"), PERSON_CONTEXT_MAPPER);
+	}
+
+
+	/**
+	 * Obtiene una Persona del LDAP con el dn formado por los siguientes
+	 * parametros
+	 */
+	@Override
+	public Person findByPrimaryKey(String country, String company, String fullname)
+	{
 		LdapName dn = buildDn(country, company, fullname);
 		return ldapTemplate.lookup(dn, PERSON_CONTEXT_MAPPER);
 	}
 
-	private LdapName buildDn(Person person) {
+
+	/**
+	 * A partir de un objeto Person construye su DN
+	 */
+	private LdapName buildDn(Person person)
+	{
 		return buildDn(person.getCountry(), person.getCompany(), person.getFullName());
 	}
 
-	private LdapName buildDn(String country, String company, String fullname) {
-        return LdapNameBuilder.newInstance()
-                .add("c", country)
-                .add("ou", company)
-                .add("cn", fullname)
-                .build();
+
+	/**
+	 * A partir de los atributos sueltos de un objeto Person construye su DN
+	 */
+	private LdapName buildDn(String country, String company, String fullname)
+	{
+		return LdapNameBuilder.newInstance().add("c", country).add("ou", company).add("cn", fullname).build();
 	}
 
-	private void mapToContext(Person person, DirContextAdapter context) {
-		context.setAttributeValues("objectclass", new String[] { "top", "person" });
+
+	/**
+	 * Mapea un objeto persona a un objeto del LDAP
+	 * 
+	 * @param person
+	 * @param context
+	 */
+	private void mapToContext(Person person, DirContextAdapter context)
+	{
+		context.setAttributeValues("objectclass", new String[]
+			{
+					"top", "person"
+			});
 		context.setAttributeValue("cn", person.getFullName());
 		context.setAttributeValue("sn", person.getLastName());
 		context.setAttributeValue("description", person.getDescription());
@@ -120,16 +174,22 @@ public class PersonDaoImpl implements PersonDao {
 
 	/**
 	 * Maps from DirContextAdapter to Person objects. A DN for a person will be
-	 * of the form <code>cn=[fullname],ou=[company],c=[country]</code>, so
-	 * the values of these attributes must be extracted from the DN. For this,
-	 * we use the LdapName along with utility methods in LdapUtils.
+	 * of the form <code>cn=[fullname],ou=[company],c=[country]</code>, so the
+	 * values of these attributes must be extracted from the DN. For this, we
+	 * use the LdapName along with utility methods in LdapUtils.
 	 */
-	private final static ContextMapper<Person> PERSON_CONTEXT_MAPPER = new AbstractContextMapper<Person>() {
-        @Override
-		public Person doMapFromContext(DirContextOperations context) {
+	private final static ContextMapper<Person> PERSON_CONTEXT_MAPPER = new AbstractContextMapper<Person>()
+	{
+		/**
+		 * Crea una persona a partir de los atributos existentes de una persona
+		 * en el LDAP
+		 */
+		@Override
+		public Person doMapFromContext(DirContextOperations context)
+		{
 			Person person = new Person();
 
-            LdapName dn = LdapUtils.newLdapName(context.getDn());
+			LdapName dn = LdapUtils.newLdapName(context.getDn());
 			person.setCountry(LdapUtils.getStringValue(dn, 0));
 			person.setCompany(LdapUtils.getStringValue(dn, 1));
 			person.setFullName(context.getStringAttribute("cn"));
@@ -140,8 +200,4 @@ public class PersonDaoImpl implements PersonDao {
 			return person;
 		}
 	};
-
-	public void setLdapTemplate(LdapTemplate ldapTemplate) {
-		this.ldapTemplate = ldapTemplate;
-	}
 }

@@ -29,69 +29,101 @@ import java.util.List;
 import static org.springframework.ldap.query.LdapQueryBuilder.query;
 
 /**
- * Default implementation of PersonDao. This implementation uses the Object-Directory Mapping feature,
- * which requires the entity classes to be annotated, but relieves the programmer from the tedious
- * task of mapping to and from entity objects, using attribute or dn component values.
+ * Default implementation of PersonDao. This implementation uses the
+ * Object-Directory Mapping feature, which requires the entity classes to be
+ * annotated, but relieves the programmer from the tedious task of mapping to
+ * and from entity objects, using attribute or dn component values.
  * 
  * @author Mattias Hellborg Arthursson
  */
-public class OdmPersonDaoImpl implements PersonDao {
+public class OdmPersonDaoImpl implements PersonDao
+{
 
 	private LdapTemplate ldapTemplate;
 
-    @Override
-	public void create(Person person) {
+
+	public void setLdapTemplate(LdapTemplate ldapTemplate)
+	{
+		this.ldapTemplate = ldapTemplate;
+	}
+
+	/**
+	 * Da de alta una persona en el LDAP
+	 */
+	@Override
+	public void create(Person person)
+	{
 		ldapTemplate.create(person);
 	}
 
-    @Override
-	public void update(Person person) {
+	/**
+	 * Actualiza una persona existente en el LDAP
+	 */
+	@Override
+	public void update(Person person)
+	{
 		ldapTemplate.update(person);
 	}
 
-    @Override
-	public void delete(Person person) {
+	/**
+	 * Borra una persona existente en el LDAP
+	 */
+	@Override
+	public void delete(Person person)
+	{
 		ldapTemplate.delete(ldapTemplate.findByDn(buildDn(person), Person.class));
 	}
 
-    @Override
-	public List<String> getAllPersonNames() {
-        return ldapTemplate.search(query()
-                .attributes("cn")
-                .where("objectclass").is("person"),
-                new AttributesMapper<String>() {
-                    public String mapFromAttributes(Attributes attrs) throws NamingException {
-                        return attrs.get("cn").get().toString();
-                    }
-                });
-    }
-
-    @Override
-	public List<Person> findAll() {
-        return ldapTemplate.findAll(Person.class);
+	/**
+	 * Obtiene una lista con el nombre de todas las personas existentes en el LDAP
+	 */
+	@Override
+	public List<String> getAllPersonNames()
+	{
+		return ldapTemplate.search(query().attributes("cn").where("objectclass").is("person"), new AttributesMapper<String>()
+		{
+			public String mapFromAttributes(Attributes attrs) throws NamingException
+			{
+				return attrs.get("cn").get().toString();
+			}
+		});
 	}
 
-    @Override
-	public Person findByPrimaryKey(String country, String company, String fullname) {
+	/**
+	 * Obtiene una lista con todas las personas existentes en el LDAP
+	 */
+	@Override
+	public List<Person> findAll()
+	{
+		return ldapTemplate.findAll(Person.class);
+	}
+
+	/**
+	 * Obtiene una Persona del LDAP con el dn formado por los siguientes parametros
+	 */
+	@Override
+	public Person findByPrimaryKey(String country, String company, String fullname)
+	{
 		LdapName dn = buildDn(country, company, fullname);
-        Person person = ldapTemplate.findByDn(dn, Person.class);
+		Person person = ldapTemplate.findByDn(dn, Person.class);
 
-        return person;
+		return person;
 	}
 
-	private LdapName buildDn(Person person) {
+	/**
+	 * A partir de un objeto Person construye su DN
+	 */
+	private LdapName buildDn(Person person)
+	{
 		return buildDn(person.getCountry(), person.getCompany(), person.getFullName());
 	}
 
-	private LdapName buildDn(String country, String company, String fullname) {
-        return LdapNameBuilder.newInstance()
-                .add("c", country)
-                .add("ou", company)
-                .add("cn", fullname)
-                .build();
+	/**
+	 * A partir de los atributos sueltos de un objeto Person construye su DN
+	 */
+	private LdapName buildDn(String country, String company, String fullname)
+	{
+		return LdapNameBuilder.newInstance().add("c", country).add("ou", company).add("cn", fullname).build();
 	}
 
-	public void setLdapTemplate(LdapTemplate ldapTemplate) {
-		this.ldapTemplate = ldapTemplate;
-	}
 }

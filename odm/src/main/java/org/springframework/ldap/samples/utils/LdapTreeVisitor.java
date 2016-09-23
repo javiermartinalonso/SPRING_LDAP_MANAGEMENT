@@ -18,7 +18,19 @@ package org.springframework.ldap.samples.utils;
 
 import org.springframework.ldap.core.DirContextOperations;
 
-public interface LdapTreeVisitor {
-
+/**
+ * Interfaz que define los métodos para recorrer y presentar la estructura de un
+ * arbol LDAP
+ * 
+ * @author javier.martin
+ *
+ */
+public interface LdapTreeVisitor
+{
+	/**
+	 * Recorre desde el nodo pasado como parametro hasta la profundidad indicada una rama de de un arbol LDAP
+	 * @param node
+	 * @param currentDepth
+	 */
 	public void visit(DirContextOperations node, int currentDepth);
 }
