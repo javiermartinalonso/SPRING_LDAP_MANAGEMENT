@@ -1,6 +1,6 @@
 ## core LDAP
 
-Módulo que expone la funcionalidad de gestión de un LDAP, está desacoplado de la implemenentación exacta que usemos.
+Módulo que expone la funcionalidad de gestión de un LDAP, está desacoplado de la implementación exacta que usemos.
 Expone métodos a alto nivel para gestionar un LDAP incluye los beans de capa de negocio.
 
 ### Users and Groups in LDAP
