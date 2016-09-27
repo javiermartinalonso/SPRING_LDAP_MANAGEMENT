@@ -9,6 +9,7 @@ import org.springframework.ldap.odm.annotations.DnAttribute;
 import org.springframework.ldap.odm.annotations.Entry;
 import org.springframework.ldap.odm.annotations.Id;
 import org.springframework.ldap.odm.annotations.Transient;
+import org.springframework.ldap.support.LdapNameBuilder;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,25 +30,25 @@ public class Person
 	@Attribute(name = "sn")
 	private String	lastName;
 	
-	@Attribute(name = "description")
-	private String	description;
-	
-	@Transient
-	@DnAttribute(value = "ou", index = 0)
-	private String	company;
+//	@Attribute(name = "description")
+//	private String	description;
 	
 	@Transient
 	@DnAttribute(value = "ou", index = 1)
-	private String	path;
+	private String	company = "people";
+	
+	@Transient
+	@DnAttribute(value = "ou", index = 0)
+	private String	path = "acme";
 
-	@Attribute(name = "telephoneNumber")
-	private String	phone;
+//	@Attribute(name = "telephoneNumber")
+//	private String	phone;
 
-	private String	userName;
+//	private String	userName;
 
-	private String	pass;
+//	private String	pass;
 
-	private String	firstName;
+//	private String	firstName;
 
 
 
@@ -58,7 +59,7 @@ public class Person
 
 
 
-	private String	email;
+	private String	mail;
 
 
 	public Person()
@@ -71,17 +72,16 @@ public class Person
 
 
 	//	public Person(String userName, String pass, String firstName, String lastName, ContactInformation personalContact, ContactInformation professionalContact, String description)
-	public Person(String userName, String pass, String firstName, String lastName, String description, String email)
+	public Person(String fullName, String lastName, String email)
+//	public Person(String userName, String pass, String firstName, String lastName, String description, String email)
 	{
 		super();
-		this.userName = userName;
-		this.pass = pass;
-		this.firstName = firstName;
+		this.fullName = fullName;
+		this.dn = LdapNameBuilder.newInstance().add("ou", "acme").add("ou", "people").add("cn", fullName).build();
+//		this.path = LdapNameBuilder.newInstance().add("ou", "acme").add("ou", "people").build();
 		this.lastName = lastName;
-		//		this.personalContact = personalContact;
-		//		this.professionalContact = professionalContact;
-		this.description = description;
-		this.description = email;
+
+		this.mail = email;
 	}
 
 
@@ -97,16 +97,16 @@ public class Person
 	}
 
 
-	public String getName()
-	{
-		return firstName;
-	}
-
-
-	public void setName(String name)
-	{
-		this.firstName = name;
-	}
+//	public String getName()
+//	{
+//		return firstName;
+//	}
+//
+//
+//	public void setName(String name)
+//	{
+//		this.firstName = name;
+//	}
 
 
 	public String getFullName()
@@ -121,64 +121,63 @@ public class Person
 	}
 
 
-	public String getPath()
-	{
-		return path;
-	}
+//	public Name getPath()
+//	{
+//		return path;
+//	}
+//
+//	public void setPath(Name path)
+//	{
+//		this.path = path;
+//	}
 
 
-	public void setPath(String path)
-	{
-		this.path = path;
-	}
+//	public String getCompany()
+//	{
+//		return company;
+//	}
+//
+//
+//	public void setCompany(String company)
+//	{
+//		this.company = company;
+//	}
+//
+//
+//	public String getPass()
+//	{
+//		return pass;
+//	}
+//
+//
+//	public void setPass(String pass)
+//	{
+//		this.pass = pass;
+//	}
 
 
-	public String getCompany()
-	{
-		return company;
-	}
+//	public String getUserName()
+//	{
+//		return userName;
+//	}
+//
+//
+//	public void setUserName(String userName)
+//	{
+//		this.userName = userName;
+//	}
 
 
-	public void setCompany(String company)
-	{
-		this.company = company;
-	}
-
-
-	public String getPass()
-	{
-		return pass;
-	}
-
-
-	public void setPass(String pass)
-	{
-		this.pass = pass;
-	}
-
-
-	public String getUserName()
-	{
-		return userName;
-	}
-
-
-	public void setUserName(String userName)
-	{
-		this.userName = userName;
-	}
-
-
-	public String getFirstName()
-	{
-		return firstName;
-	}
-
-
-	public void setFirstName(String firstName)
-	{
-		this.firstName = firstName;
-	}
+//	public String getFirstName()
+//	{
+//		return firstName;
+//	}
+//
+//
+//	public void setFirstName(String firstName)
+//	{
+//		this.firstName = firstName;
+//	}
 
 
 	public String getLastName()
@@ -218,26 +217,26 @@ public class Person
 
 	public String getEmail()
 	{
-		return email;
+		return mail;
 	}
 
 
 	public void setEmail(String email)
 	{
-		this.email = email;
+		this.mail = email;
 	}
 
 
-	public String getDescription()
-	{
-		return description;
-	}
-
-
-	public void setDescription(String description)
-	{
-		this.description = description;
-	}
+//	public String getDescription()
+//	{
+//		return description;
+//	}
+//
+//
+//	public void setDescription(String description)
+//	{
+//		this.description = description;
+//	}
 
 
 	public boolean equals(Object obj)
