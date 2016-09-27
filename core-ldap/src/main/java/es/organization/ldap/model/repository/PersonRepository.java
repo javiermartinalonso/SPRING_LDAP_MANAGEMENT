@@ -62,5 +62,5 @@ public interface PersonRepository
 	/**
 	 * Obtiene una Persona del LDAP con el dn formado por los siguientes parametros
 	 */
-	Person findByPrimaryKey(String company, String path, String fullname);
+//	Person findByPrimaryKey(String company, String path, String fullname);
 }

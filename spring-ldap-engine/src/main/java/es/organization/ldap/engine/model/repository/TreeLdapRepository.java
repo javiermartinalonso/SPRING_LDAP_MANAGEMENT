@@ -16,6 +16,7 @@
 
 package es.organization.ldap.engine.model.repository;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ldap.core.DirContextOperations;
 import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.core.support.AbstractContextMapper;
@@ -29,15 +30,27 @@ import javax.naming.Name;
 @Component
 public class TreeLdapRepository
 {
-
+	@Autowired
 	private LdapTemplate ldapTemplate;
 
 
-	public TreeLdapRepository(LdapTemplate ldapTemplate)
+	public LdapTemplate getLdapTemplate()
+	{
+		return ldapTemplate;
+	}
+
+	public void setLdapTemplate(LdapTemplate ldapTemplate)
 	{
 		this.ldapTemplate = ldapTemplate;
 	}
 
+/*
+  	public TreeLdapRepository(LdapTemplate ldapTemplate)
+
+	{
+		this.ldapTemplate = ldapTemplate;
+	}
+ */
 	/**
 	 * Obtiene una estructura de arbol LDAP tomando como raiz el nodo pasado como parametro
 	 * @param root
