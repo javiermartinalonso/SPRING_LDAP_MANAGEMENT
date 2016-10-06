@@ -1,0 +1,285 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>es.ourorganization.ldap.web.management</groupId>
+	<artifactId>ldap-management-web</artifactId>
+	<packaging>war</packaging>
+	<name>ldap-management-web</name>
+	<!-- -->
+	<parent>
+		<artifactId>ldap_management</artifactId>
+		<version>1.0.0</version>
+		<relativePath>../ldap-management</relativePath>
+		<groupId>es.ourorganization.ldap</groupId>
+	</parent>
+	
+	<properties>
+		<!-- <spring.version>4.2.4.RELEASE</spring.version>-->	 
+		<spring.version>4.2.5.RELEASE</spring.version>	
+		<spring.framework.security.version>3.0.5.RELEASE</spring.framework.security.version>
+		<jdk.version>1.8</jdk.version>
+		<apache.tiles.version>3.0.5</apache.tiles.version>
+		<hibernate.version>4.1.12.Final</hibernate.version>
+		<slf4j.version>1.5.6</slf4j.version>
+		<log4j.version>1.2.15</log4j.version>		
+	</properties>
+
+	<dependencies>
+<!-- 
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>15.0</version>
+      <scope>compile</scope>
+    </dependency>
+     -->
+		<!-- SPRING -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+		</dependency>
+
+	    <dependency>
+	      <groupId>org.springframework.data</groupId>
+	      <artifactId>spring-data-commons</artifactId>
+	      <scope>compile</scope>
+	    </dependency>
+    				
+		<!-- https://mvnrepository.com/artifact/org.springframework.ldap/spring-ldap-core -->
+		<dependency>
+		    <groupId>org.springframework.ldap</groupId>
+		    <artifactId>spring-ldap-core</artifactId>
+		    <version>2.1.0.RELEASE</version>
+		</dependency>
+
+		<dependency>
+		      <groupId>org.springframework.ldap</groupId>
+		      <artifactId>spring-ldap-test</artifactId>
+		      <version>2.1.0.RELEASE</version>
+		</dependency>
+    
+		<!-- https://mvnrepository.com/artifact/org.apache.directory.server/apacheds-all 
+		 <dependency>
+			<groupId>org.apache.directory.server</groupId>
+			<artifactId>apacheds-all</artifactId>
+			<version>1.5.5</version>
+		    <exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+    				<artifactId>slf4j-api</artifactId>					
+				</exclusion>
+			</exclusions>		   
+		</dependency>
+			-->
+			
+	    <!-- https://mvnrepository.com/artifact/commons-lang/commons-lang -->
+		<dependency>
+		    <groupId>commons-lang</groupId>
+		    <artifactId>commons-lang</artifactId>
+		    <version>2.6</version>
+		</dependency>
+    
+		<!-- SERVLET -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+		</dependency>
+
+		<!-- JSTL -->
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<!-- tiles -->
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-jsp</artifactId>
+			<version>${apache.tiles.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-core</artifactId>
+			<version>${apache.tiles.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-api</artifactId>
+			<version>${apache.tiles.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-servlet</artifactId>
+			<version>${apache.tiles.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-template</artifactId>
+			<version>${apache.tiles.version}</version>
+		</dependency>
+
+<dependency>
+	<groupId>org.slf4j</groupId>
+	<artifactId>slf4j-log4j12</artifactId>
+</dependency>
+        <!-- LOGING
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		-->
+		
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.mail</groupId>
+					<artifactId>mail</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.jms</groupId>
+					<artifactId>jms</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.jdmk</groupId>
+					<artifactId>jmxtools</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.jmx</groupId>
+					<artifactId>jmxri</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+	
+		
+	 	<!-- Apache CXF RESTful Web Services classes
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-bundle-jaxrs</artifactId>
+			<version>2.7.18</version>
+		</dependency>
+		 -->
+		<!-- 
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-jaxrs</artifactId>
+			<version>1.5.4</version>
+		</dependency>
+				<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>1.1.0</version>
+		</dependency>
+
+				<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.13</version>
+		</dependency>
+
+		 
+		 
+		 
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-xc</artifactId>
+			<version>1.9.13</version>
+		</dependency>
+		 -->
+
+	
+		<!-- Soporte para JSON -->	
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.13</version>
+		</dependency>
+				
+		<!-- jackson so spring mvc will handle json responses out of the box -->
+		<dependency>
+	        <groupId>com.fasterxml.jackson.core</groupId>
+	        <artifactId>jackson-databind</artifactId>
+	        <version>2.6.3</version>
+		</dependency>		
+
+        <!-- TEST -->
+ 		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit-dep</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+		    <version>1.9.5</version>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-test</artifactId>
+		    <scope>test</scope>
+		</dependency>
+			
+	</dependencies>
+
+	<build>
+		<finalName>ldap-management-web</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+				</configuration>
+			</plugin>
+			
+			  <plugin>
+		        <artifactId>maven-war-plugin</artifactId>
+		        <configuration>
+		          <failOnMissingWebXml>false</failOnMissingWebXml>
+		        </configuration>
+		      </plugin>
+      
+			<plugin>
+		        <groupId>org.mortbay.jetty</groupId>
+		        <artifactId>jetty-maven-plugin</artifactId>
+		        <version>8.1.14.v20131031</version>
+		        <configuration>
+		          <webAppConfig>
+		            <contextPath>/ldap-management-web</contextPath>
+		          </webAppConfig>
+		        </configuration>
+		      </plugin>			
+		</plugins>
+	</build>
+
+	<!-- <version>1.0.0</version>  -->
+</project>
