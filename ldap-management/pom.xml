@@ -1,0 +1,384 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>es.ourorganization.ldap</groupId>
+	<artifactId>ldap_management</artifactId>
+
+	<name>LDAP_MANAGEMENT</name>
+	<description>Proyecto padre de LDAP_MANAGEMENT</description>
+
+	<url>https://github.com/javiermartinalonso/SPRING_LDAP_MANAGEMENT</url>
+	
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+	
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.3.1.RELEASE</version>
+		<relativePath />
+	</parent>
+
+	<modules>
+		<module>../ldap-api</module>
+		<module>../ldap-engine</module>
+		<module>../ldap-management-web</module>
+	</modules>
+	
+	<properties>
+		<project.build.java.version>1.8</project.build.java.version>
+		<project.build.skipTest>false</project.build.skipTest>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		
+		<!-- dependency versions -->
+		<spring.version>4.2.5.RELEASE</spring.version>
+		<!-- <spring.security.version>4.1.0.RELEASE</spring.security.version> -->
+		<slf4j.version>1.6.4</slf4j.version>
+		<log4j.version>1.2.16</log4j.version>
+		<apache.tiles.version>3.0.5</apache.tiles.version>
+		<hibernate.version>4.1.12.Final</hibernate.version>
+		
+	</properties>
+	
+	<!-- metemos aqui info de perfiles en funcion del tipo de paquete a generar -->
+	<profiles>
+		<!-- 
+			Entornos: 
+				* local 
+				* development 
+				* integration 
+				* preproduction 
+				* production 
+		-->
+		<profile>
+			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<!-- Carpeta para dejar los logs -->
+				<profile.logs.basedir>${basedir}/target</profile.logs.basedir>
+
+			</properties>
+		</profile>
+		<profile>
+			<id>development</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<!-- Carpeta para dejar los logs -->
+				<profile.logs.basedir>${basedir}/target</profile.logs.basedir>
+
+			</properties>
+		</profile>
+		<profile>
+			<id>integration</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<!-- Carpeta para dejar los logs -->
+				<profile.logs.basedir>${basedir}/target</profile.logs.basedir>
+
+			</properties>
+		</profile>
+		<profile>
+			<id>preproduction</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<!-- Carpeta para dejar los logs -->
+				<profile.logs.basedir>${basedir}/target</profile.logs.basedir>
+
+			</properties>
+		</profile>
+		<profile>
+			<id>production</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<!-- Carpeta para dejar los logs -->
+				<profile.logs.basedir>${basedir}/target</profile.logs.basedir>
+
+			</properties>
+		</profile>
+
+		<!-- Servidor de destino 
+			- jar (Spring boot fat jar) 
+			- wildfly (Wildfly 9) 
+			- tomcat (Tomcat) 
+			- ¿¿Docker?? 
+		-->
+		<profile>
+			<id>jar</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<project.packaging>jar</project.packaging>
+				<spring-boot-starter-tomcat.scope>runtime</spring-boot-starter-tomcat.scope>
+
+				<profile.jndi.base>java:comp</profile.jndi.base>
+				<profile.skip.springboot>false</profile.skip.springboot>
+			</properties>
+			<dependencies>
+
+			</dependencies>
+		</profile>
+		
+		<profile>
+			<id>wildfly</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<project.packaging>war</project.packaging>
+				<spring-boot-starter-tomcat.scope>provided</spring-boot-starter-tomcat.scope>
+
+				<profile.jndi.base>java:jboss/datasources</profile.jndi.base>
+			</properties>
+			<dependencyManagement>
+				<dependencies>
+					<dependency>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter</artifactId>
+						<!--TODO Ojo estoy hay que revisarlo -->
+						<version>1.3.1.RELEASE</version>
+						<exclusions>
+							<exclusion>
+								<artifactId>jul-to-slf4j</artifactId>
+								<groupId>org.slf4j</groupId>
+							</exclusion>
+						</exclusions>
+					</dependency>
+					<dependency>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter-web</artifactId>
+						<exclusions>
+							<!-- Estas exclusiones se configuraron mas abajo segun el PROFILE seleccionado -->
+							<exclusion>
+								<groupId>org.springframework.boot</groupId>
+								<artifactId>spring-boot-starter-tomcat</artifactId>
+							</exclusion>
+							<exclusion>
+								<artifactId>jboss-logging</artifactId>
+								<groupId>org.jboss.logging</groupId>
+							</exclusion>
+
+							<exclusion>
+								<artifactId>logback-classic</artifactId>
+								<groupId>ch.qos.logback</groupId>
+							</exclusion>
+
+							<!-- En modo "WAR" provoca conflictos con LOGS -->
+							<exclusion>
+								<artifactId>jul-to-slf4j</artifactId>
+								<groupId>org.slf4j</groupId>
+							</exclusion>
+						</exclusions>
+					</dependency>
+					<dependency>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter-tomcat</artifactId>
+						<scope>provided</scope>
+					</dependency>
+				</dependencies>
+			</dependencyManagement>
+			<dependencies>
+				<dependency>
+					<groupId>javax.servlet</groupId>
+					<artifactId>javax.servlet-api</artifactId>
+					<version>3.1.0</version>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-war-plugin</artifactId>
+							<configuration>
+								<warSourceExcludes>**/*-ds.xml,**/context.xml,**/web.xml</warSourceExcludes>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+		
+		<profile>
+			<id>tomcat</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<project.packaging>war</project.packaging>
+				<spring-boot-starter-tomcat.scope>provided</spring-boot-starter-tomcat.scope>
+
+				<profile.jndi.base>java:comp</profile.jndi.base>
+			</properties>
+			<dependencyManagement>
+				<dependencies>
+					<dependency>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter</artifactId>
+						<!--TODO Ojo estoy hay que revisarlo -->
+						<version>1.3.1.RELEASE</version>
+						<exclusions>
+							<exclusion>
+								<artifactId>jul-to-slf4j</artifactId>
+								<groupId>org.slf4j</groupId>
+							</exclusion>
+						</exclusions>
+					</dependency>
+					<dependency>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter-web</artifactId>
+						<exclusions>
+							<!-- Estas exclusiones se configuraron mas abajo segun el PROFILE seleccionado -->
+							<exclusion>
+								<groupId>org.springframework.boot</groupId>
+								<artifactId>spring-boot-starter-tomcat</artifactId>
+							</exclusion>
+
+							<exclusion>
+								<artifactId>logback-classic</artifactId>
+								<groupId>ch.qos.logback</groupId>
+							</exclusion>
+
+							<!-- En modo "WAR" provoca conflictos con LOGS -->
+							<exclusion>
+								<artifactId>jul-to-slf4j</artifactId>
+								<groupId>org.slf4j</groupId>
+							</exclusion>
+						</exclusions>
+					</dependency>
+					<dependency>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter-tomcat</artifactId>
+						<scope>provided</scope>
+					</dependency>
+				</dependencies>
+			</dependencyManagement>
+			<dependencies>
+				<dependency>
+					<groupId>com.oracle</groupId>
+					<artifactId>ojdbc6</artifactId>
+					<version>11.2.0</version>
+					<scope>runtime</scope>
+				</dependency>
+				<dependency>
+					<groupId>javax.servlet</groupId>
+					<artifactId>javax.servlet-api</artifactId>
+					<version>3.1.0</version>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-war-plugin</artifactId>
+							<configuration>
+								<warSourceExcludes>**/jboss-deployment-structure.xml,**/*-ds.xml,**/web.xml</warSourceExcludes>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+	</profiles>
+
+	<dependencies>
+		<!-- ## LOGS by "LOGBACK" ## -->
+		<!-- "logback-classic" inyecta "ch.qos.logback:logback-core:1.1.3", por 
+			lo que NO incluyo su dependencia -->
+		<dependency>
+			<artifactId>logback-classic</artifactId>
+			<groupId>ch.qos.logback</groupId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>1.3.3.RELEASE</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-starter-parent</artifactId>
+				<version>Angel.SR6</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>3.4</version>
+			</dependency>
+
+		</dependencies>
+
+	</dependencyManagement>
+
+	<build>
+		<resources>
+			<!-- solo hacemos filtering de los de abajo y para los demas los dejamos 
+				igual -->
+			<!-- MUCHO OJO hay que usar @...@ para hacer el filtering -->
+			<resource>
+				<directory>${basedir}/src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/application.yml</include>
+					<include>**/application.properties</include>
+					<include>**/logback.xml</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>${basedir}/src/main/resources</directory>
+				<excludes>
+					<exclude>**/application.yml</exclude>
+					<exclude>**/application.properties</exclude>
+				</excludes>
+			</resource>
+		</resources>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<configuration>
+						<skipTests>${project.build.skipTest}</skipTests>
+						<includes>
+							<include>**/*Tests.java</include>
+							<include>**/*Test.java</include>
+						</includes>
+						<excludes>
+							<exclude>**/Abstract*.java</exclude>
+						</excludes>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+	</build>
+
+
+
+</project>
