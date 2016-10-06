@@ -2,20 +2,22 @@
 
 Proyecto con el que queremos hacer un producto para gestionar un LDAP desde un gestor WEB
 
-Será un producto modular y desacoplado de modo que sea facil reutilizarlo y actualizarlo según las necesidades.
+SerÃ¡ un producto modular y desacoplado de modo que sea facil reutilizarlo y actualizarlo segÃºn las necesidades.
+
+###MÃ³dulo padre:
+
+ldap-management.pom
 
 ###Capa vista:
 
-management_ldap.war
+ldap-management-web.war
 
 ###Capa servicio
 
-core-ldap-service.jar
+ldap-api.jar
 
 ###capa negocio
 
-core-ldap
+ldap-engine.jar
 
 ###implementacion de la persistencia del negocio
-
-spring-ldap-engine
