@@ -37,7 +37,6 @@
 		<log4j.version>1.2.16</log4j.version>
 		<apache.tiles.version>3.0.5</apache.tiles.version>
 		<hibernate.version>4.1.12.Final</hibernate.version>
-		
 	</properties>
 	
 	<!-- metemos aqui info de perfiles en funcion del tipo de paquete a generar -->
@@ -360,6 +359,15 @@
 
 		<pluginManagement>
 			<plugins>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>${project.build.java.version}</source>
+						<target>${project.build.java.version}</target>
+						<encoding>${project.build.sourceEncoding}</encoding>
+					</configuration>
+				</plugin>
+			
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
