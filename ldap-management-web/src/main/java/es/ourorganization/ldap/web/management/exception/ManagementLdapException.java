@@ -43,6 +43,13 @@ public class ManagementLdapException extends Exception
 		setMensajeExcepcion(message);
 	}
 
+	public ManagementLdapException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) 
+	{
+		super(message, cause, enableSuppression, writableStackTrace);
+		
+		setMensajeExcepcion(message);
+	}
+	
 	//	CONVERSION DE LA EXCEPCION A STRING
 	public String toString()
 	{
