@@ -5,14 +5,14 @@
 	<artifactId>ldap-management-web</artifactId>
 	<packaging>war</packaging>
 	<name>ldap-management-web</name>
-	<!-- -->
+	<!-- 	-->
 	<parent>
 		<artifactId>ldap_management</artifactId>
 		<version>1.0.0</version>
 		<relativePath>../ldap-management</relativePath>
 		<groupId>es.ourorganization.ldap</groupId>
 	</parent>
-	
+
 	<properties>
 		<!-- <spring.version>4.2.4.RELEASE</spring.version>-->	 
 		<spring.version>4.2.5.RELEASE</spring.version>	
@@ -20,8 +20,8 @@
 		<jdk.version>1.8</jdk.version>
 		<apache.tiles.version>3.0.5</apache.tiles.version>
 		<hibernate.version>4.1.12.Final</hibernate.version>
-		<slf4j.version>1.5.6</slf4j.version>
-		<log4j.version>1.2.15</log4j.version>		
+		<slf4j.version>1.6.4</slf4j.version>
+		<log4j.version>1.2.16</log4j.version>	
 	</properties>
 
 	<dependencies>
@@ -37,24 +37,44 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
 		</dependency>
 
 	    <dependency>
 	      <groupId>org.springframework.data</groupId>
 	      <artifactId>spring-data-commons</artifactId>
+	      <version>1.12.1.RELEASE</version>
 	      <scope>compile</scope>
 	    </dependency>
     				
+    	<!-- Spring boot 
+    	<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		-->
+		
 		<!-- https://mvnrepository.com/artifact/org.springframework.ldap/spring-ldap-core -->
 		<dependency>
 		    <groupId>org.springframework.ldap</groupId>
@@ -136,21 +156,18 @@
 			<version>${apache.tiles.version}</version>
 		</dependency>
 
-<dependency>
-	<groupId>org.slf4j</groupId>
-	<artifactId>slf4j-log4j12</artifactId>
-</dependency>
-        <!-- LOGING
+
+        <!-- LOGING -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>${slf4j.version}</version>
 		</dependency>
-		-->
 		
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>javax.mail</groupId>
@@ -171,44 +188,6 @@
 			</exclusions>
 		</dependency>
 
-	
-		
-	 	<!-- Apache CXF RESTful Web Services classes
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-bundle-jaxrs</artifactId>
-			<version>2.7.18</version>
-		</dependency>
-		 -->
-		<!-- 
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-jaxrs</artifactId>
-			<version>1.5.4</version>
-		</dependency>
-				<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-core-asl</artifactId>
-			<version>1.1.0</version>
-		</dependency>
-
-				<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>1.9.13</version>
-		</dependency>
-
-		 
-		 
-		 
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-xc</artifactId>
-			<version>1.9.13</version>
-		</dependency>
-		 -->
-
-	
 		<!-- Soporte para JSON -->	
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
@@ -224,6 +203,12 @@
 		</dependency>		
 
         <!-- TEST -->
+        
+        <!--<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
+		-->
  		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit-dep</artifactId>
@@ -233,6 +218,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
+			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -244,6 +230,7 @@
 		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-test</artifactId>
+		    <version>${spring.version}</version>
 		    <scope>test</scope>
 		</dependency>
 			
@@ -252,6 +239,12 @@
 	<build>
 		<finalName>ldap-management-web</finalName>
 		<plugins>
+			<!-- Spring boot 
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -281,5 +274,5 @@
 		</plugins>
 	</build>
 
-	<!-- <version>1.0.0</version>  -->
+	<version>1.0.0</version>
 </project>
