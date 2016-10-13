@@ -84,6 +84,10 @@
         
         result = ggOrgChart.render(oc_options_4, "./rest/organizacion");
         
+        //result = ggOrgChart.render(oc_options_4, "./assets/app/json/demo-policia.json");
+        //result = ggOrgChart.render(oc_options_4, "./assets/app/json/demo-organizacion.json");
+        
+        
         if (result === false) { 
 			alert("INFO: render() #4 failed (bad 'options' or 'data' definition)"); 
 			return;

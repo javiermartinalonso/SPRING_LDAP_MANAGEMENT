@@ -1,0 +1,119 @@
+{
+  "id": 2,
+  "title": "Organigrama",
+  "root": {
+    "id": "dc=example,dc=com",
+    "title": "dc=example,dc=com",
+    "type": "children",
+    "children": [
+      {
+        "id": "ou%3DDepartments",
+        "title": "ou%3DDepartments",
+        "type": "children",
+        "children": [
+          {
+            "id": "ou%3DIT",
+            "title": "ou%3DIT",
+            "type": "children",
+            "children": [
+              {
+                "id": "ou%3DDevelopment",
+                "title": "ou%3DDevelopment",
+                "type": "children",
+                "children": [
+                  {
+                    "id": "cn%3DJohn+Doe",
+                    "title": "cn%3DJohn+Doe",
+                    "type": "children"
+                  },
+                  {
+                    "id": "cn%3DSome+Dude",
+                    "title": "cn%3DSome+Dude",
+                    "type": "children"
+                  }
+                ]
+              },
+              {
+                "id": "ou%3DSupport",
+                "title": "ou%3DSupport",
+                "type": "children",
+                "children": [
+                  {
+                    "id": "cn%3DJohn+Smith",
+                    "title": "cn%3DJohn+Smith",
+                    "type": "children"
+                  }
+                ]
+              },
+              {
+                "id": "ou%3DInformation+Services",
+                "title": "ou%3DInformation+Services",
+                "type": "children",
+                "children": [
+                  {
+                    "id": "cn%3DMordac+Preventor+of+IS",
+                    "title": "cn%3DMordac+Preventor+of+IS",
+                    "type": "children"
+                  }
+                ]
+              },
+              {
+                "id": "ou%3DSystem",
+                "title": "ou%3DSystem",
+                "type": "children",
+                "children": [
+                  {
+                    "id": "cn%3DSystem",
+                    "title": "cn%3DSystem",
+                    "type": "children"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "ou%3DAccounting",
+            "title": "ou%3DAccounting",
+            "type": "children",
+            "children": [
+              {
+                "id": "ou%3DGeneral",
+                "title": "ou%3DGeneral",
+                "type": "children",
+                "children": [
+                  {
+                    "id": "cn%3DJane+Doe",
+                    "title": "cn%3DJane+Doe",
+                    "type": "children"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ou%3DGroups",
+        "title": "ou%3DGroups",
+        "type": "children",
+        "children": [
+          {
+            "id": "cn%3DROLE_USER",
+            "title": "cn%3DROLE_USER",
+            "type": "children"
+          },
+          {
+            "id": "cn%3DPOWER_USER",
+            "title": "cn%3DPOWER_USER",
+            "type": "children"
+          },
+          {
+            "id": "cn%3DROLE_ADMIN",
+            "title": "cn%3DROLE_ADMIN",
+            "type": "children"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+dn: ou=Departments,dc=example,dc=com
+objectclass: top
+objectclass: organizationalUnit
+ou: Departments
+
+dn: ou=IT,ou=Departments,dc=example,dc=com
+objectclass: top
+objectclass: organizationalUnit
+ou: IT
+
+dn: ou=Development,ou=IT,ou=Departments,dc=example,dc=com
+objectclass: top
+objectclass: organizationalUnit
+ou: Development
+
+dn: ou=Support,ou=IT,ou=Departments,dc=example,dc=com
+objectclass: top
+objectclass: organizationalUnit
+ou: Support
+
+dn: ou=Information Services,ou=IT,ou=Departments,dc=example,dc=com
+objectclass: top
+objectclass: organizationalUnit
+ou: Information Services
+
+dn: ou=System,ou=IT,ou=Departments,dc=example,dc=com
+objectclass: top
+objectclass: organizationalUnit
+ou: System
