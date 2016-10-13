@@ -4,14 +4,14 @@ public class NodeRoot
 {
 	private Long id;
 	private String title;
-	private NodeChildren root;	
+	private NodeChildren nodeChildren;	
 	
-	public NodeRoot(Long id, String title, NodeChildren nodoLDAP)
+	public NodeRoot(Long id, String title, NodeChildren nodeChildren)
 	{
 		super();
 		this.id = id;
 		this.title = title;		
-		setRoot(nodoLDAP);
+		setNodeChildren(nodeChildren);
 	}
 	
 	public Long getId()
@@ -34,22 +34,27 @@ public class NodeRoot
 		this.title = title;
 	}
 
-	
 	public NodoLDAP getRoot()
 	{
-		return root;
+		return nodeChildren;
 	}
+	
+//	public NodeChildren getNodeChildren()
+//	{
+//		return nodeChildren;
+//	}
 
-	public void setRoot(NodeChildren root)
+	public void setNodeChildren(NodeChildren nodeChildren)
 	{
-		this.root = root;
+		this.nodeChildren = nodeChildren;
 	}
 
 	@Override
 	public String toString()
-	{	
-//		return "NodoLDAP [getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";v
+	{			
+		return "{\n\t\"id\" : " + getId() + ",\n\t \"title\" : \"" + getTitle() + "\",\n\t \"root\" : {\n\t\t" + getRoot().toString() + "}\n}";
 		
-		return "\"id\" : " + getId() + ",\n \"title\" : " + getTitle() + ",\n \"root\" : {\n\t" + getRoot().toString() + "}";
+		//ANTIGUO
+//		return "\"id\" : " + getId() + ",\n \"title\" : " + getTitle() + ",\n \"root\" : {\n\t" + getRoot().toString() + "}";
 	}	
 }

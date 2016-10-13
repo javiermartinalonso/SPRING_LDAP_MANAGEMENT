@@ -115,10 +115,8 @@ public class NodoLDAP
 	@Override
 	public String toString()
 	{	       
-		StringBuffer strb = new StringBuffer("\"id\" : " + getId() 
-		+ ", \"title\" : " + getTitle());
-		
-		return strb.toString();
-				
+		StringBuffer strb = new StringBuffer("\"id\" : \"" + getId() + "\", \"title\" : \"" + getTitle() + "\"");
+	
+		return strb.toString();	
 	}	
 }

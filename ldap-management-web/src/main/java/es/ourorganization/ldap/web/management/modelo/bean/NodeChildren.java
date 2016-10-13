@@ -25,19 +25,45 @@ public class NodeChildren extends NodoLDAP
 
 	@Override
 	public String toString()
-	{	
-//		return "NodoLDAP [getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";v
-		
-		StringBuffer strb = new StringBuffer("\"id\" : " + getId())
-				.append(", \"title\" : " + getTitle())
-				.append(", \"type\" : " + getType().getDescripcion());
-		
-		if (getChildren().size()>0)
+	{			
+		StringBuffer strb = 
+				new StringBuffer("\"id\" : \"" + getId() + "\"")
+				.append(", \"title\" : \"" + getTitle() + "\"")
+				.append(", \"type\" : \"" + getType().getDescripcion()+ "\"");
+				
+		if (children != null)
 		{
-			strb.append(", \"children\" : " + getChildren().toString());
+			strb.append(", \"children\" : [");
+			boolean primeraVez = true;
+			
+			for (NodoLDAP nodoLDAP : children)
+			{
+				if (!primeraVez)
+				{
+					strb.append(", ");
+				}
+				else
+				{
+					primeraVez = false;
+				}		
+				
+				strb.append("{" + nodoLDAP.toString() + "}");
+			}
+			
+			strb.append("]");
 		}
 		
 		
+		//ANTIGUO
+//		StringBuffer strb = new StringBuffer("\"id\" : " + getId())
+//				.append(", \"title\" : " + getTitle())
+//				.append(", \"type\" : " + getType().getDescripcion());
+//		
+//		if (getChildren().size()>0)
+//		{
+//			strb.append(", \"children\" : " + getChildren().toString());
+//		}
+				
 		return strb.toString();
 	}	
 }
