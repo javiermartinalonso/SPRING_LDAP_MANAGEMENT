@@ -37,7 +37,7 @@ public class HtmlRowLdapTreeVisitor implements LdapTreeVisitor
 
 	/**
 	 * Recorre una estructura de arbol que representa una rama de un LDAP y
-	 * rellena una lista donde cada elemento es la representación que hemos
+	 * rellena una lista donde cada elemento es la representaciï¿½n que hemos
 	 * elegido para un nodo del arbol. En este caso presentamos el nodo como un
 	 * link html.
 	 * 
@@ -60,7 +60,11 @@ public class HtmlRowLdapTreeVisitor implements LdapTreeVisitor
 		rows.add(sb.toString());
 	}
 
-
+	/**
+	 * Devuelve un string que representa el link a una vista de detalle del nodo.
+	 * @param node
+	 * @return
+	 */
 	protected String getLinkForNode(DirContextOperations node)
 	{
 		return "#";

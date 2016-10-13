@@ -62,7 +62,7 @@ public class LdapTree
 	}
 
 	/**
-	 * sustituye las ramas del arbol por las ramas pasadas como paramtero
+	 * sustituye las ramas del arbol por las ramas pasadas como parametro
 	 * @param subContexts
 	 */
 	public void setSubContexts(List<LdapTree> subContexts)
@@ -80,7 +80,7 @@ public class LdapTree
 	}
 
 	/**
-	 * Recorre una estructura de arbol que representa un LDAP y rellena una lista donde cada elemento es la representación que hemos
+	 * Recorre una estructura de arbol que representa un LDAP y rellena una lista donde cada elemento es la representacion que hemos
 	 * elegido para un nodo del arbol. Podriamos presentar el nodo como un link html, como un objeto rest, etc. 
 	 * @param visitor
 	 */
@@ -92,7 +92,7 @@ public class LdapTree
 	
 	/**
 	 * Recorre una estructura de arbol que representa un LDAP y rellena una
-	 * lista donde cada elemento es la representación que hemos elegido para un
+	 * lista donde cada elemento es la representacion que hemos elegido para un
 	 * nodo del arbol. Podriamos presentar el nodo como un link html, como un
 	 * objeto rest, etc.
 	 * 
