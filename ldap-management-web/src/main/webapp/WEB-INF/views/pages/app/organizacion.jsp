@@ -43,8 +43,8 @@
         container_supra   : 'oc_supracontainer_4',   // container of the container (DIV); needed for zoom and print
         initial_zoom      : 0.75,                    // initial zoom
         pdf_canvas        : 'oc_print_canvas_4',     // name of the invisible HTML5 canvas needed for print
-        pdf_canvas_width  : 800,                     // size of the container (X axis)
-        pdf_canvas_height : 480,                     // size of the container (Y axis)
+        pdf_canvas_width  : 1400,                     // size of the container (X axis)
+        pdf_canvas_height : 680,                     // size of the container (Y axis)
         pdf_filename      : 'orgChart.pdf'           // default filename for PDF printing
     };
 
@@ -135,13 +135,14 @@
 		
         .body            { margin: 10px; padding: 0; }
         .text            { font-family: sans-serif; color: blue; text-align: left; }
-        .chart_container { margin-left: auto; margin-right: auto; position: relative; width: 70%; }
+        .chart_container { margin-left: auto; margin-right: auto; position: relative; width: auto; }
         #oc_supracontainer_4 {
-            position : absolute;
-            width    : 800px;
+            position : relative;
+            width    : 98%;
             height   : 480px;
             border   : solid 1px #333333;
-            overflow : hidden;
+            overflow : overlay;
+            margin: 1em;
         }
         #oc_content_dragonfly {
             margin-left : 8px;
