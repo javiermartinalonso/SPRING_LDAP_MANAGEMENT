@@ -19,7 +19,7 @@ package org.springframework.ldap.samples.utils;
 import org.springframework.ldap.core.DirContextOperations;
 
 /**
- * Interfaz que define los métodos para recorrer y presentar la estructura de un
+ * Interfaz que define los metodos para recorrer y presentar la estructura de un
  * arbol LDAP
  * 
  * @author javier.martin

@@ -49,6 +49,7 @@ public class TreeLdapRepositoryTest extends AbstractJUnit4SpringContextTests
 	@Test
 	public void testGetLdapTree()
 	{
+		//creamos una estructura de arbol de la conexion que tenemos contra el LDAP, le indicamos el nodo que debe tomar como raiz del LDAP.
 		TreeLdap treeLdap = treeLdapRepository.getLdapTree(LdapUtils.newLdapName("ou=acme"));
 		treeLdap.renderizeView(new TestVisitor());
 	}

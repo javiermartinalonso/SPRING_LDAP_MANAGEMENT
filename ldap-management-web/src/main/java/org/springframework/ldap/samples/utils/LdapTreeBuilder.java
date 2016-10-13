@@ -63,13 +63,13 @@ public class LdapTreeBuilder
 		final LdapTree ldapTree = new LdapTree(rootContext);
 		
 		//Realizar un listado no recursivo de los hijos de la base dada. 
-		//El objeto devuelto en cada unión se suministra al ContextMapper especificado.
+		//El objeto devuelto en cada union se suministra al ContextMapper especificado.
 		ldapTemplate.listBindings(rootContext.getDn(), new AbstractContextMapper<Object>()
 		{
 			@Override
 			protected Object doMapFromContext(DirContextOperations ctx)
 			{
-				//parte del contexto indicado como parámetro
+				//parte del contexto indicado como parametro
 				Name dn = ctx.getDn();
 				//Anteponer la ruta proporcionada en el que comienza el nombre especificado si la instancia nombre comienza con la ruta. 
 				//El nombre original no se vera afectada.
