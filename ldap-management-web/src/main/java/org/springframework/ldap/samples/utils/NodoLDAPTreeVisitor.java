@@ -102,8 +102,10 @@ public class NodoLDAPTreeVisitor implements LdapTreeVisitor
 		{
 			//OBTENEMOS EL ID DEL NODO
 			//POR EJEMPLO dn: ou=Departments,dc=example,dc=com
-			String base = node.getNameInNamespace();
-
+//			String base = node.getNameInNamespace();
+			String base = node.getStringAttribute("dc");
+//			node.getStringAttribute("dc")
+			
 			//El primer hijo del nodeRoot es la organizacion
 			NodeChildren organizacion = (NodeChildren) this.nodeRoot.getRoot();
 //			NodeChildren organizacion = this.nodeRoot.getNodeChildren();
@@ -198,13 +200,21 @@ public class NodoLDAPTreeVisitor implements LdapTreeVisitor
 		//OBTENEMOS EL ID DEL NODO
 		//POR EJEMPLO dn : cn=Some Person,ou=company1,c=Sweden
 		Name dn = node.getDn();
-
+		
 //		String area = encodeValue(LdapUtils.getStringValue(dn, atributo));
-		String area = encodeValue(dn.get(dn.size()-1));
+//		String area = encodeValue(getIDNode(atributo, dn));
+		String area = getIDNode(atributo, dn);
 	
-		NodeChildren nodeChildren = new NodeChildren(area, area, type, area, null, null, "#FFFFFF", SubTypeNode.dashed, null);
+		NodeChildren nodeChildren = new NodeChildren(area, area, type, encodeValue(area), null, null, "#FFFFFF", SubTypeNode.dashed, null);
 		
 		return nodeChildren;
+	}
+
+
+	private String getIDNode(String atributo, Name dn)
+	{
+		return LdapUtils.getValue(dn, dn.size()-1).toString();
+//		return LdapUtils.getStringValue(dn.getPrefix(dn.size()), atributo);
 	}
 
 
