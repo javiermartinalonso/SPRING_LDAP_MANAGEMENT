@@ -58,7 +58,6 @@ public class NodoLDAPTreeVisitor implements LdapTreeVisitor
 	
 //	List<NodoLDAP> listaHijosMemento = null;
 		
-	
 //	private LinkedList<NodoLDAP> listNodoLDAP = new LinkedList<NodoLDAP>();
 
 	public NodoLDAPTreeVisitor(Long id)
